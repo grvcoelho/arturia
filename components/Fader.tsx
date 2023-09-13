@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { cn } from "@/lib/styling";
 
 interface FaderProps {
+  className?: string;
   children?: React.ReactNode;
   onValueChange?: (value: any) => void;
   value: number;
@@ -10,27 +12,41 @@ interface FaderProps {
   step: number;
 }
 
-export const Fader: React.FC<FaderProps> = (props) => {
+export const Fader: React.FC<FaderProps> = ({
+  className = "",
+  children,
+  onValueChange,
+  value,
+  name,
+  min,
+  max,
+  step,
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    return props.onValueChange?.(e.target.value);
+    return onValueChange?.(e.target.value);
   };
 
   return (
-    <div className="fader flex h-[89px] w-[24px] flex-col items-center justify-between">
+    <div
+      className={cn(
+        "fader flex h-[89px] w-[24px] flex-col items-center justify-between",
+        className,
+      )}
+    >
       <input
-        id={`${props.name}-fader`}
-        name={`${props.name}-fader`}
+        id={`${name}-fader`}
+        name={`${name}-fader`}
         type="range"
-        value={props.value}
+        value={value}
         onChange={handleChange}
-        min={props.min}
-        step={props.step}
-        max={props.max}
+        min={min}
+        step={step}
+        max={max}
         className="mt-[31px] h-[4px] w-[62px] rotate-[270deg] cursor-pointer appearance-none rounded-[1px] bg-black"
       ></input>
 
       <span className="mb-[4px] font-mono text-[6px] text-neutral-800">
-        {props.children}
+        {children}
       </span>
     </div>
   );

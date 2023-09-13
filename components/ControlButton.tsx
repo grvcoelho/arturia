@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { cn } from "@/lib/styling";
 
 interface ControlButtonProps {
+  className?: string;
   children: React.ReactNode;
   active?: boolean;
   variant?: "default" | "shift";
@@ -9,9 +10,10 @@ interface ControlButtonProps {
 }
 
 export const ControlButton: React.FC<ControlButtonProps> = ({
+  className = "",
   children,
-  active,
-  variant,
+  active = false,
+  variant = "default",
   onClick,
 }) => {
   return (
@@ -24,6 +26,7 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
         variant === "shift" &&
           "bg-neutral-800 ring-[1.5px] ring-inset ring-white",
         active && "active",
+        className,
       )}
     >
       <span
@@ -37,9 +40,4 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
       </span>
     </div>
   );
-};
-
-ControlButton.defaultProps = {
-  active: false,
-  variant: "default",
 };
