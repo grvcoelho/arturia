@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import TonalNote from "@tonaljs/note";
 import { cn } from "@/lib/styling";
 import { type Note, isMidiAccidental, getChromaFromNote } from "@/lib/music";
 
 interface KeyProps {
   className?: string;
   note: Note;
+  active?: boolean;
   onPress?: (note: Note) => void;
   onRelease?: (note: Note) => void;
 }
@@ -13,22 +13,15 @@ interface KeyProps {
 export const Key: React.FC<KeyProps> = ({
   className,
   note,
+  active = false,
   onPress,
   onRelease,
 }) => {
-  const [active, setActive] = useState(false);
   const chroma = getChromaFromNote(note);
   const isAccidental = isMidiAccidental(note.midi);
 
-  const handlePress = () => {
-    setActive(true);
-    onPress && onPress(note);
-  };
-
-  const handleRelease = () => {
-    setActive(false);
-    onRelease && onRelease(note);
-  };
+  const handlePress = () => onPress?.(note);
+  const handleRelease = () => onRelease?.(note);
 
   return (
     <div
@@ -55,8 +48,8 @@ export const Key: React.FC<KeyProps> = ({
         className,
       )}
       onMouseDown={handlePress}
-      onMouseLeave={handleRelease}
       onMouseUp={handleRelease}
+      onMouseLeave={handleRelease}
     ></div>
   );
 };

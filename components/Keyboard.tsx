@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/styling";
 import { useArturiaContext } from "@/contexts/arturia";
 import { notesFromOctave, type Note } from "@/lib/music";
 import { Key } from "./Key";
+import { is } from "ramda";
 
 export const Keyboard: React.FC = ({}) => {
   const [state] = useArturiaContext();
-
   const { instrument, octave, sustain, velocity } = state;
+  const [activeNotes, setActiveNotes] = useState<Note[]>([]);
+
+  const isActiveNote = (note: Note) =>
+    !!activeNotes.find((n) => n.midi === note.midi);
 
   const notes = [
     ...notesFromOctave(octave),
@@ -15,8 +19,11 @@ export const Keyboard: React.FC = ({}) => {
     notesFromOctave(octave + 2)[0],
   ];
 
-  const pressKey = (note: Note) => {
+  const handlePress = (note: Note) => {
+    console.log("hey-ho", instrument);
     if (!instrument) return;
+
+    setActiveNotes((prev) => [...prev, note]);
 
     instrument.start({
       note: note.midi,
@@ -25,10 +32,63 @@ export const Keyboard: React.FC = ({}) => {
     });
   };
 
-  const releaseKey = (note: Note) => {
+  const handleRelease = (note: Note) => {
     if (sustain) return;
+
+    setActiveNotes((prev) => prev.filter((n) => n.midi !== note.midi));
     instrument?.stop(note.midi);
   };
+
+  useEffect(() => {
+    const keymap = [
+      "a",
+      "w",
+      "s",
+      "e",
+      "d",
+      "f",
+      "t",
+      "g",
+      "y",
+      "h",
+      "u",
+      "j",
+      "k",
+      "o",
+      "l",
+      "p",
+      ";",
+    ];
+
+    const getNoteFromKey = (key: string) => {
+      const index = keymap.indexOf(key);
+
+      return notes[index];
+    };
+
+    window.addEventListener("keydown", (e) => {
+      const key = e.key;
+      const note = getNoteFromKey(key);
+
+      if (keymap.includes(key) && !e.repeat) {
+        return handlePress(note);
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      const key = e.key;
+      const note = getNoteFromKey(key);
+
+      if (keymap.includes(key)) {
+        return handleRelease(note);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("keydown", () => {});
+      window.removeEventListener("keyup", () => {});
+    };
+  }, [instrument]);
 
   return (
     <div
@@ -43,8 +103,9 @@ export const Keyboard: React.FC = ({}) => {
         <Key
           key={note.midi}
           note={note}
-          onPress={pressKey}
-          onRelease={releaseKey}
+          active={isActiveNote(note)}
+          onPress={handlePress}
+          onRelease={handleRelease}
         />
       ))}
     </div>
