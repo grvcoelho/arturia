@@ -192,6 +192,26 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tonaljs/core@^4.8.0", "@tonaljs/core@^4.9.0":
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/@tonaljs/core/-/core-4.10.0.tgz#d0230664461c86386c49c2a10b48b471510e337e"
+  integrity sha512-+AH7NP9iiAGil+X7NlKGlQvls/KByQmxR51d5O+y6IjHltOkVUXk74oZuxW7zF0IsKchFn8Okr0sxqFmgsQmpA==
+
+"@tonaljs/midi@^4.8.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@tonaljs/midi/-/midi-4.9.0.tgz#698fca229c84e34363149603fb87ab92da9f4110"
+  integrity sha512-zi6lK2OC2EA8E1Nl011erWAZgOSlrfstJMgnrbm4/nLDegotg5ALbMnfX/s+SIfSSFcXn/Og1d8xwPeAwoaUyg==
+  dependencies:
+    "@tonaljs/core" "^4.8.0"
+
+"@tonaljs/note@^4.10.0":
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/@tonaljs/note/-/note-4.10.0.tgz#1a258c3daaa18e16f97890f571dbf425f9c4878e"
+  integrity sha512-jWyxk9Dom+vsucj3dWG9z4j6WhZqbY7gkKsS14fHeo7g8qUZTVZFsr8ulpHyLPXN3EhLwHDU7CxIQ1klkPE33A==
+  dependencies:
+    "@tonaljs/core" "^4.9.0"
+    "@tonaljs/midi" "^4.8.0"
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
