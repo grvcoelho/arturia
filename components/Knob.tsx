@@ -10,9 +10,9 @@ export const Knob: React.FC<KnobProps> = ({ children }) => (
     <div
       className={cn(
         "knob flex h-[22px] w-[22px] items-center justify-center rounded-full",
-        "bg-gradient-to-b from-stone-100 to-stone-200",
+        "bg-gradient-to-b from-stone-100 to-stone-300",
         "after:h-[17px] after:w-[17px] after:rounded-full",
-        "after:bg-gradient-to-b after:from-stone-200 after:to-stone-100",
+        "after:bg-gradient-to-b after:from-stone-300 after:to-stone-100",
       )}
     ></div>
     <span className="mt-[5px] font-mono text-[6px] text-neutral-800">
