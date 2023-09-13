@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
-import { DrumMachine, Soundfont, Reverb, getDrumMachineNames } from "smplr";
+import React, { useEffect, useContext } from "react";
+import { DrumMachine, Soundfont, Reverb } from "smplr";
 import {
   BiArrowFromBottom,
   BiUpArrowAlt,
@@ -12,7 +12,7 @@ import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
-import { ArturiaContext } from "@/state/arturia";
+import { ArturiaContext } from "@/lib/state";
 
 export type DrumNote =
   | "kick"
@@ -31,7 +31,18 @@ interface ArturiaProps {
 
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
-  const [arturiaState, actions] = useContext(ArturiaContext);
+  const [state, actions] = useContext(ArturiaContext);
+
+  const {
+    instrument,
+    reverb,
+    sustain,
+    volume,
+    drumkit,
+    octave,
+    fader3,
+    fader4,
+  } = state;
 
   const {
     changeDrumkit,
@@ -44,17 +55,6 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     increaseOctave,
     toggleSustain,
   } = actions;
-
-  const {
-    instrument,
-    reverb,
-    sustain,
-    volume,
-    drumkit,
-    octave,
-    fader3,
-    fader4,
-  } = arturiaState;
 
   instrument?.output.setVolume(volume);
   drumkit?.output.setVolume(volume);

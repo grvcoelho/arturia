@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Arturia from "@/components/Arturia";
-import { ArturiaProvider } from "@/state/arturia";
+import { ArturiaProvider } from "@/lib/state";
 
 export default function Index() {
   return (

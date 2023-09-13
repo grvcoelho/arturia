@@ -1,12 +1,7 @@
-import { bindActionCreators } from "@/lib/state";
-import {
-  type Dispatch,
-  type PayloadAction,
-  type ActionCreatorsMapObject,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { bindActionCreators } from "./utils";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { clamp, not } from "ramda";
-import React, { useReducer, createContext, PropsWithChildren } from "react";
+import React, { useReducer, createContext } from "react";
 import { DrumMachine, Soundfont } from "smplr";
 
 export type ArturiaState = {
