@@ -31,13 +31,13 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     volume,
     drumkit,
     octave,
-    fader3,
+    velocity,
     fader4,
   } = state;
 
   const {
     changeDrumkit,
-    changeFader3,
+    changeVelocity,
     changeFader4,
     changeInstrument,
     changeReverb,
@@ -166,12 +166,12 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                 2
               </Fader>
               <Fader
-                name="fader3"
+                name="velocity"
                 min={0}
-                value={fader3}
-                max={100}
+                value={velocity}
+                max={127}
                 step={1}
-                onValueChange={changeFader3}
+                onValueChange={changeVelocity}
               >
                 3
               </Fader>

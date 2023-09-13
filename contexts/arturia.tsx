@@ -9,7 +9,7 @@ import { DrumMachine, Soundfont } from "smplr";
 export type ArturiaState = {
   volume: number;
   reverb: number;
-  fader3: number;
+  velocity: number;
   fader4: number;
   sustain: boolean;
   octave: number;
@@ -20,7 +20,7 @@ export type ArturiaState = {
 export const initialState: ArturiaState = {
   volume: 90,
   reverb: 0.2,
-  fader3: 30,
+  velocity: 100,
   fader4: 70,
   sustain: false,
   octave: 4,
@@ -38,8 +38,8 @@ const { actions, reducer } = createSlice({
     changeReverb(state, action: PayloadAction<number>) {
       state.reverb = action.payload;
     },
-    changeFader3(state, action: PayloadAction<number>) {
-      state.fader3 = action.payload;
+    changeVelocity(state, action: PayloadAction<number>) {
+      state.velocity = action.payload;
     },
     changeFader4(state, action: PayloadAction<number>) {
       state.fader4 = action.payload;

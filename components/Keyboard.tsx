@@ -7,7 +7,7 @@ import { Key } from "./Key";
 export const Keyboard: React.FC = ({}) => {
   const [state] = useArturiaContext();
 
-  const { instrument, octave, sustain } = state;
+  const { instrument, octave, sustain, velocity } = state;
 
   const notes = [
     ...notesFromOctave(octave),
@@ -21,7 +21,7 @@ export const Keyboard: React.FC = ({}) => {
     instrument.start({
       note: note.midi,
       time: instrument.context.currentTime,
-      velocity: 100,
+      velocity,
     });
   };
 
