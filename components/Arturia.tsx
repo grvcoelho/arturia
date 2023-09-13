@@ -11,6 +11,7 @@ import { Pad } from "./Pad";
 import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
+import { ControlButton } from "./ControlButton";
 
 interface ArturiaProps {
   className?: string;
@@ -67,71 +68,29 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
         <div className="ml-[8px] h-full w-[70px] pt-[15px]">
           <div className="flex flex-wrap justify-between">
             <div className="flex h-[20px] w-[32px] items-center justify-center rounded-[2px] bg-neutral-400 shadow-inner">
-              <div
-                className={cn(
-                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-neutral-800 ring-[1.5px] ring-inset ring-white",
-                )}
-              >
-                <span
-                  className={cn(" text-center font-mono text-[4px] text-white")}
-                >
-                  Shift
-                </span>
-              </div>
+              <ControlButton variant="shift">Shift</ControlButton>
             </div>
+
             <div className="flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
-              <div
-                onClick={handleSustainChange}
-                className={cn(
-                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-neutral-100 shadow-sm transition-all ease-in-out",
-                  "active:translate-y-[1px] active:shadow-none",
-                  sustain && "bg-white ",
-                )}
-              >
-                <span
-                  className={cn(
-                    "text-center font-mono text-[4px] text-neutral-800",
-                  )}
-                >
-                  Hold
-                </span>
-              </div>
+              <ControlButton onClick={handleSustainChange} active={sustain}>
+                Hold
+              </ControlButton>
             </div>
             <div className="mt-[8px] flex h-[20px] w-[32px] items-center justify-center rounded-[2px]">
-              <div
+              <ControlButton
                 onClick={handleOctaveDecrease}
-                className={cn(
-                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-neutral-100 shadow-sm transition-all ease-in-out",
-                  "active:translate-y-[1px] active:shadow-none",
-                  octave < initialOctave && "bg-white ",
-                )}
+                active={octave < initialOctave}
               >
-                <span
-                  className={cn(
-                    "text-center font-mono text-[4px] text-neutral-800",
-                  )}
-                >
-                  Oct-
-                </span>
-              </div>
+                Oct-
+              </ControlButton>
             </div>
             <div className="mt-[8px] flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
-              <div
+              <ControlButton
                 onClick={handleOctaveIncrease}
-                className={cn(
-                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-neutral-100 shadow-sm transition-all ease-in-out",
-                  "active:translate-y-[1px] active:shadow-none",
-                  octave > initialOctave && "bg-white ",
-                )}
+                active={octave > initialOctave}
               >
-                <span
-                  className={cn(
-                    "text-center font-mono text-[4px] text-neutral-800",
-                  )}
-                >
-                  Oct+
-                </span>
-              </div>
+                Oct+
+              </ControlButton>
             </div>
           </div>
 
