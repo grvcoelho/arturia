@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/styling";
-import { type DrumNote } from "./Arturia";
+import { DrumNote } from "@/lib/music";
 
 const styleVariants = {
   red: { text: "text-red-500", ring: "ring-red-500" },
