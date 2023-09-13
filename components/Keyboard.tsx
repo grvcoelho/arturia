@@ -104,6 +104,18 @@ export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
     setInstrument(instrument);
   }, []);
 
+  const pressKey = (note: Note) => {
+    if (!instrument) return;
+
+    instrument.start({
+      note: note.midi,
+      time: instrument.context.currentTime,
+      velocity: 100,
+    });
+  };
+
+  const releaseKey = (note: Note) => instrument?.stop(note.midi);
+
   return (
     <div
       className={cn(
@@ -117,8 +129,8 @@ export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
         <Key
           key={note.midi}
           note={note}
-          onPress={() => {}}
-          onRelease={() => {}}
+          onPress={pressKey}
+          onRelease={releaseKey}
         />
       ))}
     </div>
