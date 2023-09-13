@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { cn } from "@/lib/styling";
-import { ArturiaContext } from "@/lib/state";
+import { useArturiaContext } from "@/contexts/arturia";
 import { notesFromOctave, type Note } from "@/lib/music";
 import { Key } from "./Key";
 
 export const Keyboard: React.FC = ({}) => {
-  const [state] = useContext(ArturiaContext);
+  const [state] = useArturiaContext();
 
   const { instrument, octave, sustain } = state;
 

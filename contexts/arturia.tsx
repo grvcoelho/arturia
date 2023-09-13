@@ -1,7 +1,9 @@
-import { bindActionCreators } from "./utils";
+"use client";
+
+import { bindActionCreators } from "@/lib/state";
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { clamp, not } from "ramda";
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useContext } from "react";
 import { DrumMachine, Soundfont } from "smplr";
 
 export type ArturiaState = {
@@ -68,6 +70,8 @@ export const ArturiaContext = createContext<ArturiaContext>([
   initialState as ArturiaState,
   {} as ArturiaActions,
 ]);
+
+export const useArturiaContext = () => useContext(ArturiaContext);
 
 export const ArturiaProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [state, dispatch] = useReducer(reducer, initialState);

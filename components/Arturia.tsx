@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { DrumMachine, Soundfont, Reverb } from "smplr";
 import {
   BiArrowFromBottom,
@@ -12,7 +12,7 @@ import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
-import { ArturiaContext } from "@/lib/state";
+import { useArturiaContext } from "@/contexts/arturia";
 import { DrumNote } from "@/lib/music";
 
 interface ArturiaProps {
@@ -22,7 +22,7 @@ interface ArturiaProps {
 
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
-  const [state, actions] = useContext(ArturiaContext);
+  const [state, actions] = useArturiaContext();
 
   const {
     instrument,
