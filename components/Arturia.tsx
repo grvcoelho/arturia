@@ -112,6 +112,28 @@ const Knob: React.FC<KnobProps> = ({ children }) => (
   </div>
 );
 
+interface FaderProps {
+  children?: React.ReactNode;
+}
+
+const Fader: React.FC<KnobProps> = ({ children }) => (
+  <div className="fader flex h-[89px] w-[24px] flex-col items-center justify-between">
+    <input
+      id="default-range"
+      type="range"
+      min="0"
+      step="0.01"
+      max="1"
+      list="opacity"
+      className="mt-[31px] h-[4px] w-[62px] rotate-90 cursor-pointer appearance-none rounded-[1px] bg-black"
+    ></input>
+
+    <span className="mb-[4px] font-mono text-[6px] text-neutral-800">
+      {children}
+    </span>
+  </div>
+);
+
 interface ArturiaProps {
   className?: string;
   style?: React.CSSProperties;
@@ -150,8 +172,11 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
               <Knob>7</Knob>
               <Knob>8</Knob>
             </div>
-            <div className="ml-[30px] h-[89px] w-[134px] bg-fuchsia-100">
-              faders
+            <div className="ml-[29px] flex h-[89px] w-[134px] justify-between ">
+              <Fader>1</Fader>
+              <Fader>2</Fader>
+              <Fader>3</Fader>
+              <Fader>4</Fader>
             </div>
           </div>
           <div className="ml-[10px] flex gap-[12.5px]">

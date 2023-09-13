@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.fader input[type="range"]::-webkit-slider-thumb {
+  @apply w-[2px] h-[18px] bg-slate-800 ring-[5px] ring-white rounded-sm shadow-lg;
+  -webkit-appearance: none;
+}
