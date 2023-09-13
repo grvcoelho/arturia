@@ -7,7 +7,7 @@ import { cn } from "@/lib/styling";
 
 export default function Home() {
   const [opacity, setOpacity] = useState(1);
-  const [overlap, setOverlap] = useState(false);
+  const [overlap, setOverlap] = useState(true);
   const [invert, setInvert] = useState(false);
 
   return (
