@@ -1,94 +1,87 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/styling";
-import { useArturiaContext } from "@/contexts/arturia";
-import { notesFromOctave, type Note } from "@/lib/music";
+import { type KeyboardKey, useArturiaContext } from "@/contexts/arturia";
+import { type Note } from "@/lib/music";
 import { Key } from "./Key";
-import { is } from "ramda";
+import { useKeydown, useKeyup } from "@/lib/keyboardEvents";
 
 export const Keyboard: React.FC = ({}) => {
-  const [state] = useArturiaContext();
-  const { instrument, octave, sustain, velocity } = state;
-  const [activeNotes, setActiveNotes] = useState<Note[]>([]);
+  const [
+    state,
+    {
+      activateKey,
+      deactivateKey,
+      increaseOctave,
+      decreaseOctave,
+      toggleSustain,
+    },
+  ] = useArturiaContext();
+  const { instrument, sustain, velocity, keyboardKeys } = state;
 
-  const isActiveNote = (note: Note) =>
-    !!activeNotes.find((n) => n.midi === note.midi);
-
-  const notes = [
-    ...notesFromOctave(octave),
-    ...notesFromOctave(octave + 1),
-    notesFromOctave(octave + 2)[0],
+  const keymap = [
+    "a",
+    "w",
+    "s",
+    "e",
+    "d",
+    "f",
+    "t",
+    "g",
+    "y",
+    "h",
+    "u",
+    "j",
+    "k",
+    "o",
+    "l",
+    "p",
+    ";",
   ];
 
-  const handlePress = (note: Note) => {
-    console.log("hey-ho", instrument);
+  const controlKeymap = ["+", "-", "Tab"];
+
+  const handlePress = (key: KeyboardKey) => {
     if (!instrument) return;
 
-    setActiveNotes((prev) => [...prev, note]);
+    activateKey(key);
 
     instrument.start({
-      note: note.midi,
+      note: key.note.midi,
       time: instrument.context.currentTime,
       velocity,
     });
   };
 
-  const handleRelease = (note: Note) => {
+  const handleRelease = (key: KeyboardKey) => {
     if (sustain) return;
 
-    setActiveNotes((prev) => prev.filter((n) => n.midi !== note.midi));
-    instrument?.stop(note.midi);
+    deactivateKey(key);
+    instrument?.stop(key.note.midi);
   };
 
-  useEffect(() => {
-    const keymap = [
-      "a",
-      "w",
-      "s",
-      "e",
-      "d",
-      "f",
-      "t",
-      "g",
-      "y",
-      "h",
-      "u",
-      "j",
-      "k",
-      "o",
-      "l",
-      "p",
-      ";",
-    ];
+  useKeydown(controlKeymap, (e) => {
+    e.preventDefault();
+    return (
+      !e.repeat &&
+      ((e.key === "+" && increaseOctave()) ||
+        (e.key === "-" && decreaseOctave()) ||
+        (e.key === "Tab" && toggleSustain()))
+    );
+  });
 
-    const getNoteFromKey = (key: string) => {
-      const index = keymap.indexOf(key);
+  useKeydown(keymap, (e) => {
+    const index = keymap.indexOf(e.key);
+    const key = keyboardKeys[index];
 
-      return notes[index];
-    };
+    if (key && !e.repeat) handlePress(key);
+  });
 
-    window.addEventListener("keydown", (e) => {
-      const key = e.key;
-      const note = getNoteFromKey(key);
+  useKeyup(keymap, (e) => {
+    const index = keymap.indexOf(e.key);
+    const key = keyboardKeys[index];
 
-      if (keymap.includes(key) && !e.repeat) {
-        return handlePress(note);
-      }
-    });
-
-    window.addEventListener("keyup", (e) => {
-      const key = e.key;
-      const note = getNoteFromKey(key);
-
-      if (keymap.includes(key)) {
-        return handleRelease(note);
-      }
-    });
-
-    return () => {
-      window.removeEventListener("keydown", () => {});
-      window.removeEventListener("keyup", () => {});
-    };
-  }, [instrument]);
+    if (key) handleRelease(key);
+  });
 
   return (
     <div
@@ -99,11 +92,11 @@ export const Keyboard: React.FC = ({}) => {
         "after:content-[' '] after:absolute after:left-0 after:right-0 after:-z-20 after:h-[166px] after:w-full after:rounded-[0px]",
       )}
     >
-      {notes.map((note) => (
+      {keyboardKeys.map((k) => (
         <Key
-          key={note.midi}
-          note={note}
-          active={isActiveNote(note)}
+          key={k.note.midi}
+          keyboardKey={k}
+          active={k.active}
           onPress={handlePress}
           onRelease={handleRelease}
         />

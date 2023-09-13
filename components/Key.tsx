@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/styling";
 import { type Note, isMidiAccidental, getChromaFromNote } from "@/lib/music";
+import { KeyboardKey } from "@/contexts/arturia";
 
 interface KeyProps {
   className?: string;
-  note: Note;
+  keyboardKey: KeyboardKey;
   active?: boolean;
-  onPress?: (note: Note) => void;
-  onRelease?: (note: Note) => void;
+  onPress?: (key: KeyboardKey) => void;
+  onRelease?: (key: KeyboardKey) => void;
 }
 
 export const Key: React.FC<KeyProps> = ({
   className,
-  note,
+  keyboardKey: k,
   active = false,
   onPress,
   onRelease,
 }) => {
-  const chroma = getChromaFromNote(note);
-  const isAccidental = isMidiAccidental(note.midi);
+  const chroma = getChromaFromNote(k.note);
+  const isAccidental = isMidiAccidental(k.note.midi);
 
-  const handlePress = () => onPress?.(note);
-  const handleRelease = () => onRelease?.(note);
+  const handlePress = () => onPress?.(k);
+  const handleRelease = () => onRelease?.(k);
 
   return (
     <div
