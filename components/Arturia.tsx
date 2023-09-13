@@ -81,34 +81,19 @@ const Key: React.FC<KeyProps> = ({ type, note }) => {
   );
 };
 
-const Keyboard: React.FC = () => {
+interface KeyboardProps {
+  children?: React.ReactNode;
+}
+
+const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
   return (
-    <div className="relative flex h-full justify-center rounded bg-neutral-900">
-      <Key note="C" type="natural" />
-      <Key note="C#" type="accidental" />
-      <Key note="D" type="natural" />
-      <Key note="D#" type="accidental" />
-      <Key note="E" type="natural" />
-      <Key note="F" type="natural" />
-      <Key note="F#" type="accidental" />
-      <Key note="G" type="natural" />
-      <Key note="G#" type="accidental" />
-      <Key note="A" type="natural" />
-      <Key note="A#" type="accidental" />
-      <Key note="B" type="natural" />
-      <Key note="C" type="natural" />
-      <Key note="C#" type="accidental" />
-      <Key note="D" type="natural" />
-      <Key note="D#" type="accidental" />
-      <Key note="E" type="natural" />
-      <Key note="F" type="natural" />
-      <Key note="F#" type="accidental" />
-      <Key note="G" type="natural" />
-      <Key note="G#" type="accidental" />
-      <Key note="A" type="natural" />
-      <Key note="A#" type="accidental" />
-      <Key note="B" type="natural" />
-      <Key note="C" type="natural" />
+    <div
+      className={cn(
+        "relative z-20 flex h-full justify-center rounded bg-neutral-900",
+        "before:content-[' '] before:bgx-blue-500 before:absolute before:left-0 before:right-0 before:z-20 before:h-[150px] before:w-full before:rounded-[4px] before:shadow-inner",
+      )}
+    >
+      {children}
     </div>
   );
 };
@@ -159,7 +144,33 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
       </div>
 
       <div>
-        <Keyboard></Keyboard>
+        <Keyboard>
+          <Key note="C" type="natural" />
+          <Key note="C#" type="accidental" />
+          <Key note="D" type="natural" />
+          <Key note="D#" type="accidental" />
+          <Key note="E" type="natural" />
+          <Key note="F" type="natural" />
+          <Key note="F#" type="accidental" />
+          <Key note="G" type="natural" />
+          <Key note="G#" type="accidental" />
+          <Key note="A" type="natural" />
+          <Key note="A#" type="accidental" />
+          <Key note="B" type="natural" />
+          <Key note="C" type="natural" />
+          <Key note="C#" type="accidental" />
+          <Key note="D" type="natural" />
+          <Key note="D#" type="accidental" />
+          <Key note="E" type="natural" />
+          <Key note="F" type="natural" />
+          <Key note="F#" type="accidental" />
+          <Key note="G" type="natural" />
+          <Key note="G#" type="accidental" />
+          <Key note="A" type="natural" />
+          <Key note="A#" type="accidental" />
+          <Key note="B" type="natural" />
+          <Key note="C" type="natural" />
+        </Keyboard>
       </div>
     </div>
   );
