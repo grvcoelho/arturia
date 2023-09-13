@@ -47,7 +47,7 @@ export default function Index() {
           this project on Github.
         </p>
 
-        <small className="text-xs">
+        <small className="text-xs text-neutral-400">
           This is a project made for fun and not at all affiliated with the
           Arturia Company.
         </small>
