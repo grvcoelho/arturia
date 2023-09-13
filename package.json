@@ -26,6 +26,7 @@
     "ramda": "^0.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-github-btn": "^1.4.0",
     "react-icons": "^4.10.1",
     "smplr": "^0.6.1",
     "tailwind-merge": "^1.14.0",

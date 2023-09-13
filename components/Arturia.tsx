@@ -81,7 +81,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     <div
       className={cn(
         className,
-        "flex h-[369px] w-[595px] flex-col rounded-xl bg-[#EDE9E8] px-[32px] pt-[10px] shadow-lg",
+        "flex h-[369px] w-[595px] flex-col rounded-xl bg-[#EDE9E8] px-[32px] pt-[10px] shadow-xl",
       )}
       style={style}
     >
