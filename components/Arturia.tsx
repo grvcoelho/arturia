@@ -8,7 +8,7 @@ import {
 
 import { cn } from "@/lib/styling";
 import { Pad } from "./Pad";
-import { Knob } from "./Knob";
+import { MainKnob, StandardKnob } from "./Knobs";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
@@ -168,25 +168,18 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
           <div className="flex h-[113px] items-end">
             <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-950">
               <Display text={displayText} />
-              <div
-                className={cn(
-                  "knob mb-[10px] flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full bg-neutral-700 shadow-inner",
-                  "bg-gradient-to-b from-neutral-700 to-neutral-800",
-                  "after:h-[18px] after:w-[18px] after:rounded-full",
-                  "after:bg-gradient-to-b after:from-neutral-800 after:to-neutral-700",
-                )}
-                onClick={nextInstrument}
-              ></div>
+
+              <MainKnob className="mb-[10px]" onClick={nextInstrument} />
             </div>
             <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
-              <Knob>1</Knob>
-              <Knob>2</Knob>
-              <Knob>3</Knob>
-              <Knob>4</Knob>
-              <Knob>5</Knob>
-              <Knob>6</Knob>
-              <Knob>7</Knob>
-              <Knob>8</Knob>
+              <StandardKnob>1</StandardKnob>
+              <StandardKnob>2</StandardKnob>
+              <StandardKnob>3</StandardKnob>
+              <StandardKnob>4</StandardKnob>
+              <StandardKnob>5</StandardKnob>
+              <StandardKnob>6</StandardKnob>
+              <StandardKnob>7</StandardKnob>
+              <StandardKnob>8</StandardKnob>
             </div>
             <div className="ml-[29px] flex h-[89px] w-[134px] justify-between ">
               <Fader

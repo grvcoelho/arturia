@@ -42,12 +42,14 @@ export const Fader: React.FC<FaderProps> = ({
         min={min}
         step={step}
         max={max}
-        className="mt-[31px] h-[4px] w-[62px] rotate-[270deg] cursor-pointer appearance-none rounded-[1px] bg-black"
+        className="relative top-[29px] h-[4px] w-[62px] rotate-[270deg] cursor-pointer appearance-none rounded-[1px] bg-black"
       ></input>
 
-      <span className="mb-[4px] font-mono text-[6px] text-neutral-800">
-        {children}
-      </span>
+      {children && (
+        <span className="mb-[4px] font-mono text-[6px] text-neutral-800">
+          {children}
+        </span>
+      )}
     </div>
   );
 };
