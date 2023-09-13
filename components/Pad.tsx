@@ -47,8 +47,10 @@ export const Pad: React.FC<PadProps> = ({
     >
       <div
         className={cn(
-          "flex h-[38.5px] w-[38.5px] flex-col justify-end rounded-[4px] bg-black ring-[1.5px] ring-inset",
+          "flex h-[38.5px] w-[38.5px] flex-col justify-end rounded-[4px] ring-[1.5px] ring-inset",
+          "bg-gradient-to-b from-neutral-800 to-neutral-950",
           ring,
+          "transition-transform duration-100 ease-in-out active:scale-[.99]",
         )}
       >
         <span className={cn("mb-[3px] text-center font-mono text-[4px]", text)}>
