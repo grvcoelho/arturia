@@ -132,7 +132,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
               <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
                 Arturia
               </div>
-              <div className="mb-[17px] h-[24px] w-[24px] cursor-pointer rounded-full bg-neutral-700 shadow-inner"></div>
+              <div className="mb-[10px] h-[24px] w-[24px] cursor-pointer rounded-full bg-neutral-700 shadow-inner"></div>
             </div>
             <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
               <Knob>1</Knob>
@@ -215,14 +215,36 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
           </div>
         </div>
       </div>
-      <div className="flex h-[29px] w-full items-end justify-between">
+      <div className="flex h-[29px] w-full items-end">
         <div className="mb-[4px] ml-[12px] text-[12px] tracking-widest">
           <span className="font-semibold">MINI</span>
           <span>LAB</span>
           <span className="font-bold">3</span>
         </div>
 
-        <div className="mb-[3px] mr-[13px] inline-block scale-x-125 text-[11px] tracking-[1px]">
+        <div className="mb-[6px] ml-[35px]">
+          <div className="relative flex w-[312px] scale-y-[1.3] justify-between text-[5px] font-medium text-stone-400">
+            <span className="absolute -left-[24px]">MIDI CH</span>
+            <span className="w-[10px] text-center">1</span>
+            <span className="w-[10px] text-center">2</span>
+            <span className="w-[10px] text-center">3</span>
+            <span className="w-[10px] text-center">4</span>
+            <span className="w-[10px] text-center">5</span>
+            <span className="w-[10px] text-center">6</span>
+            <span className="w-[10px] text-center">7</span>
+            <span className="w-[10px] text-center">8</span>
+            <span className="w-[10px] text-center">9</span>
+            <span className="w-[10px] text-center">10</span>
+            <span className="w-[10px] text-center">11</span>
+            <span className="w-[10px] text-center">12</span>
+            <span className="w-[10px] text-center">13</span>
+            <span className="w-[10px] text-center">14</span>
+            <span className="w-[10px] text-center">15</span>
+            <span className="w-[10px] text-center">16</span>
+          </div>
+        </div>
+
+        <div className="mb-[3px] ml-auto mr-[13px] inline-block scale-x-125 text-[11px] tracking-[1px]">
           <span className="font-semibold">ARTURIA</span>
         </div>
       </div>
