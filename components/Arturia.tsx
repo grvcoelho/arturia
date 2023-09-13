@@ -8,7 +8,7 @@ import {
 import { Pad } from "./Pad";
 import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
-import { Keyboard, Key } from "./Keyboard";
+import { Keyboard } from "./Keyboard";
 
 interface ArturiaProps {
   className?: string;
@@ -148,33 +148,7 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
         </div>
       </div>
       <div>
-        <Keyboard>
-          <Key note="C" type="natural" />
-          <Key note="C#" type="accidental" />
-          <Key note="D" type="natural" />
-          <Key note="D#" type="accidental" />
-          <Key note="E" type="natural" />
-          <Key note="F" type="natural" />
-          <Key note="F#" type="accidental" />
-          <Key note="G" type="natural" />
-          <Key note="G#" type="accidental" />
-          <Key note="A" type="natural" />
-          <Key note="A#" type="accidental" />
-          <Key note="B" type="natural" />
-          <Key note="C" type="natural" />
-          <Key note="C#" type="accidental" />
-          <Key note="D" type="natural" />
-          <Key note="D#" type="accidental" />
-          <Key note="E" type="natural" />
-          <Key note="F" type="natural" />
-          <Key note="F#" type="accidental" />
-          <Key note="G" type="natural" />
-          <Key note="G#" type="accidental" />
-          <Key note="A" type="natural" />
-          <Key note="A#" type="accidental" />
-          <Key note="B" type="natural" />
-          <Key note="C" type="natural" />
-        </Keyboard>
+        <Keyboard />
       </div>
     </div>
   );

@@ -1,60 +1,42 @@
-import React from "react";
+"use client";
+
+import { Soundfont } from "smplr";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/styling";
-
-interface KeyProps {
-  className?: string;
-  type: "accidental" | "natural";
-  note:
-    | "C"
-    | "C#"
-    | "D"
-    | "D#"
-    | "E"
-    | "F"
-    | "F#"
-    | "G"
-    | "G#"
-    | "A"
-    | "A#"
-    | "B";
-}
-
-export const Key: React.FC<KeyProps> = ({ className, type, note }) => {
-  const [active, setActive] = React.useState(false);
-
-  return (
-    <div
-      className={cn(
-        "key",
-
-        "relative float-left ml-[2px] flex cursor-pointer items-end justify-center rounded-b-sm border-neutral-900 pb-1 text-opacity-0 first:ml-0",
-
-        "origin-top transition-transform duration-75 ease-in",
-
-        active && "active scale-[.99]",
-
-        type === "accidental" &&
-          "-left-[11px] z-30 -mr-[22px] h-[94px] w-[20px] bg-black text-white",
-
-        type === "natural" && "z-20 h-[150px] w-[33px] bg-[#F4F1F4] text-black",
-
-        ["C#", "F#"].includes(note) && "left-[-16px]",
-
-        ["D#", "A#"].includes(note) && "left-[-6px]",
-
-        className,
-      )}
-      onMouseLeave={() => setActive(false)}
-      onMouseDown={() => setActive(true)}
-      onMouseUp={() => setActive(false)}
-    ></div>
-  );
-};
+import { Key } from "./Key";
 
 interface KeyboardProps {
   children?: React.ReactNode;
 }
+
 export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
+  const [instrument, setInstrument] = useState<Soundfont | null>(null);
+
+  useEffect(() => {
+    const ac = new AudioContext();
+
+    const instrument = new Soundfont(ac, {
+      instrument: "lead_2_sawtooth",
+    });
+
+    setInstrument(instrument);
+  }, []);
+
+  const playNote = (note) => {
+    instrument?.start({
+      note,
+      duration: 200,
+    });
+
+    if (!instrument) return;
+    note.time = (note.time ?? 0) + instrument.context.currentTime;
+    instrument.start(note);
+  };
+
+  const stopNote = (midi) => {
+    instrument?.stop({ stopId: midi });
+  };
+
   return (
     <div
       className={cn(
@@ -64,7 +46,181 @@ export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
         "after:content-[' '] after:absolute after:left-0 after:right-0 after:-z-20 after:h-[166px] after:w-full after:rounded-[0px]",
       )}
     >
-      {children}
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="C"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="C#"
+        octave={4}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="D"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="D#"
+        octave={4}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="E"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="F"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="F#"
+        octave={4}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="G"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="G#"
+        octave={4}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="A"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="A#"
+        octave={4}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="B"
+        octave={4}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="C"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="C#"
+        octave={5}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="D"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="D#"
+        octave={5}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="E"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="F"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="F#"
+        octave={5}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="G"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="G#"
+        octave={5}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="A"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="A#"
+        octave={5}
+        type="accidental"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="B"
+        octave={5}
+        type="natural"
+      />
+      <Key
+        onPress={playNote}
+        onRelease={stopNote}
+        note="C"
+        octave={6}
+        type="natural"
+      />
     </div>
   );
 };
