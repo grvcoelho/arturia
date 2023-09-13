@@ -13,16 +13,7 @@ import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
 import { ArturiaContext } from "@/lib/state";
-
-export type DrumNote =
-  | "kick"
-  | "snare"
-  | "clap"
-  | "tom-hi"
-  | "mid-tom"
-  | "cymbal"
-  | "hihat-close"
-  | "hihat-open";
+import { DrumNote } from "@/lib/music";
 
 interface ArturiaProps {
   className?: string;
@@ -236,7 +227,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
         </div>
       </div>
       <div>
-        <Keyboard sustain={sustain} instrument={instrument} octave={octave} />
+        <Keyboard />
       </div>
     </div>
   );
