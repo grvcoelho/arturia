@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { DrumMachine, Soundfont, Reverb, getDrumMachineNames } from "smplr";
 import {
   BiArrowFromBottom,
@@ -12,7 +12,7 @@ import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
-import { ArturiaState, arturiaReducer, arturiaActions } from "@/state/arturia";
+import { arturiaActions, ArturiaContext } from "@/state/arturia";
 
 const {
   changeDrumkit,
@@ -43,18 +43,7 @@ interface ArturiaProps {
 
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
-  const initialState: ArturiaState = {
-    volume: 90,
-    reverb: 0.2,
-    fader3: 30,
-    fader4: 70,
-    sustain: false,
-    octave: middleOctave,
-    instrument: null,
-    drumkit: null,
-  };
-
-  const [arturiaState, dispatch] = useReducer(arturiaReducer, initialState);
+  const [arturiaState, dispatch] = useContext(ArturiaContext);
 
   const {
     instrument,
