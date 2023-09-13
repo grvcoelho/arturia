@@ -28,7 +28,7 @@ interface PadProps {
 }
 
 const Pad: React.FC<PadProps> = ({ color, children }) => (
-  <div className=" flex h-[42px] w-[42px] items-center justify-center rounded-[6px] bg-black">
+  <div className="flex h-[42px] w-[42px] cursor-not-allowed items-center justify-center rounded-[6px] bg-black">
     <div
       className={cn(
         "flex h-[38.5px] w-[38.5px] flex-col justify-end rounded-[4px] bg-black ring-[1.5px] ring-inset",
@@ -90,13 +90,27 @@ const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
     <div
       className={cn(
         "relative z-20 flex h-full justify-center rounded bg-neutral-900",
-        "before:content-[' '] before:bgx-blue-500 before:absolute before:left-0 before:right-0 before:z-20 before:h-[150px] before:w-full before:rounded-[4px] before:shadow-inner",
+        "before:content-[' '] before:absolute before:left-0 before:right-0 before:z-20 before:h-[150px] before:w-full before:rounded-[4px] before:shadow-inner",
+        "after:content-[' '] after:absolute after:left-0 after:right-0 after:z-20 after:h-[150px] after:w-full after:rounded-[4px] after:shadow-xl",
       )}
     >
       {children}
     </div>
   );
 };
+
+interface KnobProps {
+  children?: React.ReactNode;
+}
+
+const Knob: React.FC<KnobProps> = ({ children }) => (
+  <div className="space-between flex w-[22px] cursor-not-allowed flex-col items-center">
+    <div className="h-[22px] w-[22px] rounded-full bg-white shadow-md"></div>
+    <span className="mt-[4px] font-mono text-[6px] text-neutral-800">
+      {children}
+    </span>
+  </div>
+);
 
 interface ArturiaProps {
   className?: string;
@@ -116,15 +130,25 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
       <div className="bg-neutral-30 bg-neutral-300text-3xl flex h-[164px] items-center justify-center space-x-[10px] font-bold">
         <div className="ml-[10px] h-full w-[70px] bg-purple-300"></div>
         <div className="flex h-full flex-1 flex-col justify-between space-y-[9px]">
-          <div className="flex h-[113px] items-end bg-blue-100">
+          <div className="flex h-[113px] items-end">
             <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-800">
               <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
                 Arturia
               </div>
-              <div className="mb-[17px] h-[22px] w-[22px] rounded-full bg-neutral-700"></div>
+              <div className="mb-[17px] h-[20px] w-[20px] cursor-not-allowed rounded-full bg-neutral-600 shadow-lg"></div>
             </div>
-            <div className="ml-[10px] h-[96px] w-[190px] bg-amber-100">
-              knobs
+            <div
+              className="ml-[10px] grid h-[89px] w-[190px] place-content-between"
+              style={{ gridTemplateColumns: "repeat(4, minmax(0, 22px)" }}
+            >
+              <Knob>1</Knob>
+              <Knob>2</Knob>
+              <Knob>3</Knob>
+              <Knob>4</Knob>
+              <Knob>5</Knob>
+              <Knob>6</Knob>
+              <Knob>7</Knob>
+              <Knob>8</Knob>
             </div>
             <div className="ml-[30px] h-[89px] w-[134px] bg-fuchsia-100">
               faders
