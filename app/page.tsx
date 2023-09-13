@@ -8,6 +8,7 @@ import { cn } from "@/lib/styling";
 export default function Home() {
   const [opacity, setOpacity] = useState(1);
   const [overlap, setOverlap] = useState(false);
+  const [invert, setInvert] = useState(false);
 
   return (
     <>
@@ -54,6 +55,21 @@ export default function Home() {
               </span>
             </label>
           </div>
+
+          <div>
+            <label className="relative inline-flex cursor-pointer items-center">
+              <input
+                type="checkbox"
+                checked={invert}
+                className="peer sr-only"
+                onChange={(event) => setInvert(event.target.checked)}
+              />
+              <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-0"></div>
+              <span className="ml-3 text-sm font-medium text-gray-900">
+                Invert
+              </span>
+            </label>
+          </div>
         </div>
 
         <div
@@ -63,9 +79,13 @@ export default function Home() {
           )}
         >
           <div>
-            <Image src="/arturia.png" width={595} height={369} />
+            <Image alt="Arturia" src="/arturia.png" width={595} height={369} />
           </div>
-          <Arturia className={cn(overlap && "absolute")} style={{ opacity }} />
+
+          <Arturia
+            className={cn(overlap && "absolute", invert && "invert")}
+            style={{ opacity }}
+          />
         </div>
       </main>
     </>
