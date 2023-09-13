@@ -10,7 +10,7 @@ type Note = {
 
 const isMidiAccidental = (midi: number) => [1, 3, 6, 8, 10].includes(midi % 12);
 
-const notesFromOct = (oct: number): Array<Note> => {
+const notesFromOctave = (oct: number): Array<Note> => {
   // C1 starts at midi note 24
   // C4 starts at midi note 60
   const midiBase = oct * 12 + 12;
@@ -82,27 +82,16 @@ export const Key: React.FC<KeyProps> = ({
 };
 
 interface KeyboardProps {
-  children?: React.ReactNode;
+  instrument: Soundfont | null;
+  octave: number;
 }
 
-export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
-  const [instrument, setInstrument] = useState<Soundfont | null>(null);
-  const [oct, setOct] = useState(4);
+export const Keyboard: React.FC<KeyboardProps> = ({ instrument, octave }) => {
   const notes = [
-    ...notesFromOct(oct),
-    ...notesFromOct(oct + 1),
-    notesFromOct(oct + 2)[0],
+    ...notesFromOctave(octave),
+    ...notesFromOctave(octave + 1),
+    notesFromOctave(octave + 2)[0],
   ];
-
-  useEffect(() => {
-    const ac = new AudioContext();
-
-    const instrument = new Soundfont(ac, {
-      instrument: "lead_2_sawtooth",
-    });
-
-    setInstrument(instrument);
-  }, []);
 
   const pressKey = (note: Note) => {
     if (!instrument) return;
