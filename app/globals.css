@@ -33,5 +33,7 @@
 }
 
 .knob::after {
+  -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
   box-shadow: 0px 5px 12px 0px rgba(0,0,0,0.1);
 }
