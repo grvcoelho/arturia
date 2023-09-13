@@ -51,11 +51,26 @@ const Keyboard = () => {
   );
 };
 
-function Arturia() {
+function Arturia(props) {
+  const { className, style } = props;
   return (
-    <div className="flex h-[369px] w-[595px] flex-col rounded-xl bg-[#EDE9E8] px-[32px] pt-[12px] shadow-md">
-      <div className="bg-neutral-30 flex h-[200px] items-center justify-center bg-neutral-300 p-4 text-3xl font-bold">
-        Controls
+    <div
+      className={cn(
+        className,
+        "flex h-[369px] w-[595px] flex-col rounded-xl bg-[#EDE9E8] px-[32px] pt-[12px] shadow-md",
+      )}
+      style={style}
+    >
+      <div className="bg-neutral-30 bg-neutral-300text-3xl flex h-[200px] items-center justify-center space-x-[10px] pb-[24px] font-bold">
+        <div className="ml-[10px] h-full w-[70px] bg-purple-300"></div>
+        <div className="flex h-full flex-1 flex-col justify-between space-y-[10px]">
+          <div className="flex h-[115px] items-end justify-between bg-blue-100">
+            <div className="h-full w-[63px] bg-black"></div>
+            <div className="h-[96px] w-[195px] bg-amber-100">knobs</div>
+            <div className="h-[89px] w-[138px] bg-fuchsia-100">faders</div>
+          </div>
+          <div className="flex-1 bg-green-100">pads</div>
+        </div>
       </div>
       <Keyboard></Keyboard>
     </div>
