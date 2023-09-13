@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { DrumMachine, Soundfont, Reverb } from "smplr";
 import {
@@ -15,6 +17,17 @@ import { ControlButton } from "./ControlButton";
 import { useArturiaContext } from "@/contexts/arturia";
 import { DrumNote } from "@/lib/music";
 
+const instrumentNames = [
+  "lead_2_sawtooth",
+  "electric_piano_1",
+  "electric_piano_2",
+  "marimba",
+  "trumpet",
+  "tuba",
+] as const;
+
+type InstrumentName = (typeof instrumentNames)[number];
+
 interface ArturiaProps {
   className?: string;
   style?: React.CSSProperties;
@@ -23,6 +36,8 @@ interface ArturiaProps {
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
   const [state, actions] = useArturiaContext();
+  const [currentInstrumentName, setCurrentInstrumentName] =
+    React.useState<InstrumentName>(instrumentNames[0]);
 
   const {
     instrument,
@@ -57,25 +72,40 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     });
   };
 
-  useEffect(() => {
-    const ac = new AudioContext();
-    const reverb = new Reverb(ac);
+  const handleMainKnobClick = () => {
+    const instrumentIndex = instrumentNames.indexOf(currentInstrumentName);
+    const nextInstrumentIndex = (instrumentIndex + 1) % instrumentNames.length;
+    const nextInstrumentName = instrumentNames[nextInstrumentIndex];
+    setCurrentInstrumentName(nextInstrumentName);
+  };
 
+  const loadInstrument = (
+    instrumentName: InstrumentName,
+    ac: AudioContext,
+    reverbEffect: Reverb,
+  ) => {
     const instrument = new Soundfont(ac, {
-      instrument: "lead_2_sawtooth",
+      instrument: instrumentName,
       decayTime: 0.5,
       volume,
     });
 
-    instrument.output.addEffect("reverb", reverb, 0);
+    instrument.output.addEffect("reverb", reverbEffect, reverb);
+    setCurrentInstrumentName(instrumentName);
+    changeInstrument(instrument);
+  };
+
+  useEffect(() => {
+    const ac = new AudioContext();
+    const reverbEffect = new Reverb(ac);
+    loadInstrument(currentInstrumentName, ac, reverbEffect);
 
     const drumkit = new DrumMachine(ac, {
       instrument: "TR-808",
     });
 
-    changeInstrument(instrument);
     changeDrumkit(drumkit);
-  }, []);
+  }, [currentInstrumentName]);
 
   return (
     <div
@@ -139,6 +169,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                   "after:h-[18px] after:w-[18px] after:rounded-full",
                   "after:bg-gradient-to-b after:from-neutral-800 after:to-neutral-700",
                 )}
+                onClick={handleMainKnobClick}
               ></div>
             </div>
             <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
