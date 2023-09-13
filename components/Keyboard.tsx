@@ -1,44 +1,52 @@
 import React from "react";
 import { cn } from "@/lib/styling";
 
-const Key = ({ type, note }) => {
+interface KeyProps {
+  type: "accidental" | "natural";
+  note:
+    | "C"
+    | "C#"
+    | "D"
+    | "D#"
+    | "E"
+    | "F"
+    | "F#"
+    | "G"
+    | "G#"
+    | "A"
+    | "A#"
+    | "B";
+}
+
+export const Key: React.FC<KeyProps> = ({ type, note }) => {
   return (
     <div
       className={cn(
-        "relative float-left flex items-end justify-center rounded-b-md border-2 border-neutral-900 pb-1",
+        "relative float-left ml-[2px] flex items-end justify-center rounded-b-sm border-neutral-900 pb-1 text-opacity-0 first:ml-0",
 
         type === "accidental" &&
-          "-left-4 z-10 -mr-8 h-24 w-8 bg-[#F4F1F4]  text-white",
+          "-left-[11px] z-10 -mr-[22px] h-[94px] w-[20px] bg-black text-white",
 
-        type === "natural" &&
-          " h-44 w-10 border-r-0 bg-white text-black last:border-r-2",
+        type === "natural" && "h-[150px] w-[33px] bg-[#F4F1F4] text-black",
       )}
     >
       {note}
     </div>
   );
 };
-
-const Keyboard = () => {
+interface KeyboardProps {
+  children?: React.ReactNode;
+}
+export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
   return (
-    <div className="rounded-lg border-2 border-x-neutral-800 border-b-neutral-900 border-t-neutral-600 bg-neutral-700 p-3 shadow-lg">
-      <div className="relative flex rounded bg-neutral-900 p-1">
-        <Key note="C" type="natural" />
-        <Key note="C#" type="accidental" />
-        <Key note="D" type="natural" />
-        <Key note="D#" type="accidental" />
-        <Key note="E" type="natural" />
-        <Key note="F" type="natural" />
-        <Key note="F#" type="accidental" />
-        <Key note="G" type="natural" />
-        <Key note="G#" type="accidental" />
-        <Key note="A" type="natural" />
-        <Key note="A#" type="accidental" />
-        <Key note="B" type="natural" />
-        <Key note="C" type="natural" />
-      </div>
+    <div
+      className={cn(
+        "relative z-20 flex h-full justify-center rounded bg-neutral-900",
+        "before:content-[' '] before:absolute before:left-0 before:right-0 before:z-20 before:h-[150px] before:w-full before:rounded-[4px] before:shadow-inner",
+        "after:content-[' '] after:absolute after:left-0 after:right-0 after:z-20 after:h-[150px] after:w-full after:rounded-[4px] after:shadow-xl",
+      )}
+    >
+      {children}
     </div>
   );
 };
-
-export default Keyboard;
