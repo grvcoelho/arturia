@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect } from "react";
 import { DrumMachine, Soundfont, Reverb } from "smplr";
 import {
@@ -14,14 +12,14 @@ import { Knob } from "./Knob";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
-import { useArturiaContext } from "@/contexts/arturia";
+import { useArturiaContext } from "@/contexts/ArturiaContext";
 import { DrumNote } from "@/lib/music";
 import { useKeydown } from "@/lib/keyboardEvents";
+import { Display } from "./Display";
 
 const instrumentNames = [
   "lead_2_sawtooth",
   "electric_piano_1",
-  "electric_piano_2",
   "marimba",
   "trumpet",
   "tuba",
@@ -49,6 +47,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     octave,
     velocity,
     fader4,
+    displayText,
   } = state;
 
   const {
@@ -56,6 +55,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     changeVelocity,
     changeFader4,
     changeInstrument,
+    changeDisplayText,
     changeReverb,
     changeVolume,
     decreaseOctave,
@@ -77,6 +77,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     const instrumentIndex = instrumentNames.indexOf(currentInstrumentName);
     const nextInstrumentIndex = (instrumentIndex + 1) % instrumentNames.length;
     const nextInstrumentName = instrumentNames[nextInstrumentIndex];
+
     setCurrentInstrumentName(nextInstrumentName);
   };
 
@@ -105,6 +106,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     const ac = new AudioContext();
     const reverbEffect = new Reverb(ac);
     loadInstrument(currentInstrumentName, ac, reverbEffect);
+    changeDisplayText(currentInstrumentName);
 
     const drumkit = new DrumMachine(ac, {
       instrument: "TR-808",
@@ -164,10 +166,8 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
         </div>
         <div className="ml-[12px] flex h-full flex-1 flex-col justify-between space-y-[9px]">
           <div className="flex h-[113px] items-end">
-            <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-900">
-              <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
-                Arturia
-              </div>
+            <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-950">
+              <Display text={displayText} />
               <div
                 className={cn(
                   "knob mb-[10px] flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full bg-neutral-700 shadow-inner",

@@ -1,4 +1,4 @@
-import { ArturiaProvider } from "@/contexts/arturia";
+import { ArturiaProvider } from "@/contexts/ArturiaContext";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";

@@ -13,6 +13,7 @@ export type KeyboardKey = {
 };
 
 export type ArturiaState = {
+  displayText: string;
   volume: number;
   reverb: number;
   velocity: number;
@@ -41,6 +42,7 @@ function getInitialState(): ArturiaState {
   const keyboardKeys = keysFromOctave(initialOctave);
 
   return {
+    displayText: "Arturia",
     volume: 90,
     reverb: 0.2,
     velocity: 100,
@@ -71,6 +73,9 @@ const { actions, reducer } = createSlice({
     },
     setkeys(state, action: PayloadAction<Array<KeyboardKey>>) {
       state.keyboardKeys = action.payload;
+    },
+    changeDisplayText(state, action: PayloadAction<string>) {
+      state.displayText = action.payload;
     },
     changeVolume(state, action: PayloadAction<number>) {
       state.volume = action.payload;

@@ -36,17 +36,10 @@ export default function Index() {
           >
             View the code
           </Link>{" "}
-          and{" "}
-          <Link
-            href="https://github.com/grvcoelho/arturia/stargazers"
-            className="text-blue-600 underline"
-          >
-            star
-          </Link>{" "}
-          this project on Github.
+          on Github.
         </p>
 
-        <div>
+        <div className="h-7">
           <GitHubButton
             href="https://github.com/grvcoelho/arturia"
             data-icon="octicon-star"

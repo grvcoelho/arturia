@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/styling";
 import { type Note, isMidiAccidental, getChromaFromNote } from "@/lib/music";
-import { KeyboardKey } from "@/contexts/arturia";
+import { KeyboardKey } from "@/contexts/ArturiaContext";
 
 interface KeyProps {
   className?: string;

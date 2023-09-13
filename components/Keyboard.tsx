@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/styling";
-import { type KeyboardKey, useArturiaContext } from "@/contexts/arturia";
-import { type Note } from "@/lib/music";
+import { type KeyboardKey, useArturiaContext } from "@/contexts/ArturiaContext";
 import { Key } from "./Key";
 import { useKeydown, useKeyup } from "@/lib/keyboardEvents";
 
