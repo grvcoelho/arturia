@@ -60,13 +60,22 @@ function Arturia(props) {
       )}
       style={style}
     >
-      <div className="bg-neutral-30 bg-neutral-300text-3xl mb-[31px] flex h-[162px] items-center justify-center space-x-[10px] font-bold">
+      <div className="bg-neutral-30 bg-neutral-300text-3xl mb-[29px] flex h-[164px] items-center justify-center space-x-[10px] font-bold">
         <div className="ml-[10px] h-full w-[70px] bg-purple-300"></div>
-        <div className="flex h-full flex-1 flex-col justify-between space-y-[10px]">
-          <div className="flex h-[115px] items-end justify-between bg-blue-100">
-            <div className="h-full w-[63px] bg-black"></div>
-            <div className="h-[96px] w-[195px] bg-amber-100">knobs</div>
-            <div className="h-[89px] w-[138px] bg-fuchsia-100">faders</div>
+        <div className="flex h-full flex-1 flex-col justify-between space-y-[9px]">
+          <div className="flex h-[113px] items-end bg-blue-100">
+            <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-800">
+              <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
+                Arturia
+              </div>
+              <div className="mb-[17px] h-[22px] w-[22px] rounded-full bg-neutral-700"></div>
+            </div>
+            <div className="ml-[10px] h-[96px] w-[190px] bg-amber-100">
+              knobs
+            </div>
+            <div className="ml-[30px] h-[89px] w-[134px] bg-fuchsia-100">
+              faders
+            </div>
           </div>
           <div className="flex-1 bg-green-100">pads</div>
         </div>
