@@ -106,7 +106,7 @@ interface KnobProps {
 const Knob: React.FC<KnobProps> = ({ children }) => (
   <div className="space-between flex w-[22px] cursor-not-allowed flex-col items-center">
     <div className="h-[22px] w-[22px] rounded-full bg-white shadow-md"></div>
-    <span className="mt-[4px] font-mono text-[6px] text-neutral-800">
+    <span className="mt-[5px] font-mono text-[6px] text-neutral-800">
       {children}
     </span>
   </div>
@@ -122,8 +122,8 @@ const Fader: React.FC<KnobProps> = ({ children }) => (
       id="default-range"
       type="range"
       min="0"
-      step="0.01"
-      max="1"
+      step="10"
+      max="100"
       list="opacity"
       className="mt-[31px] h-[4px] w-[62px] rotate-90 cursor-pointer appearance-none rounded-[1px] bg-black"
     ></input>
@@ -149,9 +149,75 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
       )}
       style={style}
     >
-      <div className="bg-neutral-30 bg-neutral-300text-3xl flex h-[164px] items-center justify-center space-x-[10px] font-bold">
-        <div className="ml-[10px] h-full w-[70px] bg-purple-300"></div>
-        <div className="flex h-full flex-1 flex-col justify-between space-y-[9px]">
+      <div className="justify-centerfont-bold flex h-[164px] items-center">
+        <div className="ml-[8px] h-full w-[70px] pt-[15px]">
+          <div className="flex flex-wrap justify-between">
+            <div className="flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px] bg-neutral-400 shadow-inner">
+              <div
+                className={cn(
+                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-neutral-800 ring-[1.5px] ring-inset ring-white",
+                )}
+              >
+                <span
+                  className={cn(" text-center font-mono text-[4px] text-white")}
+                >
+                  Shift
+                </span>
+              </div>
+            </div>
+            <div className="flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px] ">
+              <div
+                className={cn(
+                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
+                )}
+              >
+                <span
+                  className={cn(
+                    " text-center font-mono text-[4px] text-neutral-800",
+                  )}
+                >
+                  Hold
+                </span>
+              </div>
+            </div>
+            <div className="mt-[8px] flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px]">
+              <div
+                className={cn(
+                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
+                )}
+              >
+                <span
+                  className={cn(
+                    " text-center font-mono text-[4px] text-neutral-800",
+                  )}
+                >
+                  Oct-
+                </span>
+              </div>
+            </div>
+            <div className="mt-[8px] flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px] ">
+              <div
+                className={cn(
+                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
+                )}
+              >
+                <span
+                  className={cn(
+                    " text-center font-mono text-[4px] text-neutral-800",
+                  )}
+                >
+                  Oct+
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mr-[2px] mt-[10px] flex justify-between">
+            <div className="mod h-[90px] w-[26px] rounded-[2px] bg-[#EDE9E8]"></div>
+            <div className="mod h-[90px] w-[26px] rounded-[2px] bg-[#EDE9E8]"></div>
+          </div>
+        </div>
+        <div className="ml-[12px] flex h-full flex-1 flex-col justify-between space-y-[9px]">
           <div className="flex h-[113px] items-end">
             <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-800">
               <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
@@ -159,10 +225,7 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
               </div>
               <div className="mb-[17px] h-[20px] w-[20px] cursor-not-allowed rounded-full bg-neutral-600 shadow-lg"></div>
             </div>
-            <div
-              className="ml-[10px] grid h-[89px] w-[190px] place-content-between"
-              style={{ gridTemplateColumns: "repeat(4, minmax(0, 22px)" }}
-            >
+            <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
               <Knob>1</Knob>
               <Knob>2</Knob>
               <Knob>3</Knob>

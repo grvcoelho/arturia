@@ -78,7 +78,7 @@ export default function Home() {
             !overlap && "space-y-20",
           )}
         >
-          <div>
+          <div className="overflow-hidden rounded-[14px]">
             <Image alt="Arturia" src="/arturia.png" width={595} height={369} />
           </div>
 
