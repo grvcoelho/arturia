@@ -109,7 +109,6 @@ export const Keyboard: React.FC<KeyboardProps> = ({
   };
 
   const releaseKey = (note: Note) => {
-    console.log(sustain, note);
     if (sustain) return;
     instrument?.stop(note.midi);
   };

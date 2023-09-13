@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Soundfont, Reverb } from "smplr";
+import { DrumMachine, Soundfont, Reverb, getDrumMachineNames } from "smplr";
 import {
   BiArrowFromBottom,
   BiUpArrowAlt,
@@ -12,6 +12,16 @@ import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
+
+export type DrumNote =
+  | "kick"
+  | "snare"
+  | "clap"
+  | "tom-hi"
+  | "mid-tom"
+  | "cymbal"
+  | "hihat-close"
+  | "hihat-open";
 
 interface ArturiaProps {
   className?: string;
@@ -29,8 +39,10 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const [fader4, setFader4] = useState(70);
   const [octave, setOctave] = useState(initialOctave);
   const [instrument, setInstrument] = useState<Soundfont | null>(null);
+  const [drumKit, setDrumKit] = useState<DrumMachine | null>(null);
 
   instrument?.output.setVolume(volume);
+  drumKit?.output.setVolume(volume);
   instrument?.output.sendEffect("reverb", reverb);
 
   const handleOctaveIncrease = () =>
@@ -40,6 +52,14 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     setOctave((prev) => (prev > 0 ? prev - 1 : prev));
 
   const handleSustainChange = () => setSustain((prev) => !prev);
+
+  const handlePadTap = (drumNote: DrumNote) => {
+    console.log(drumNote);
+    console.log(drumKit?.getVariations(drumNote));
+    drumKit?.start({
+      note: drumNote,
+    });
+  };
 
   useEffect(() => {
     const ac = new AudioContext();
@@ -53,7 +73,12 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
 
     instrument.output.addEffect("reverb", reverb, 0);
 
+    const drumKit = new DrumMachine(ac, {
+      instrument: "TR-808",
+    });
+
     setInstrument(instrument);
+    setDrumKit(drumKit);
   }, []);
 
   return (
@@ -167,14 +192,30 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
             </div>
           </div>
           <div className="ml-[10px] flex gap-[12.5px]">
-            <Pad color="red">Arp</Pad>
-            <Pad color="orange">Pad</Pad>
-            <Pad color="amber">Prog</Pad>
-            <Pad color="yellow">Loop</Pad>
-            <Pad color="lime">Stop</Pad>
-            <Pad color="green">Play</Pad>
-            <Pad color="emerald">Rec</Pad>
-            <Pad color="teal">Tap</Pad>
+            <Pad variant="red" drumNote="kick" onTap={handlePadTap}>
+              Arp
+            </Pad>
+            <Pad variant="orange" drumNote="snare" onTap={handlePadTap}>
+              Pad
+            </Pad>
+            <Pad variant="amber" drumNote="clap" onTap={handlePadTap}>
+              Prog
+            </Pad>
+            <Pad variant="yellow" drumNote="tom-hi" onTap={handlePadTap}>
+              Loop
+            </Pad>
+            <Pad variant="lime" drumNote="mid-tom" onTap={handlePadTap}>
+              Stop
+            </Pad>
+            <Pad variant="green" drumNote="cymbal" onTap={handlePadTap}>
+              Play
+            </Pad>
+            <Pad variant="emerald" drumNote="hihat-close" onTap={handlePadTap}>
+              Rec
+            </Pad>
+            <Pad variant="teal" drumNote="hihat-open" onTap={handlePadTap}>
+              Tap
+            </Pad>
           </div>
         </div>
       </div>
