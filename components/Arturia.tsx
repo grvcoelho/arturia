@@ -16,6 +16,7 @@ import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
 import { useArturiaContext } from "@/contexts/arturia";
 import { DrumNote } from "@/lib/music";
+import { useKeydown } from "@/lib/keyboardEvents";
 
 const instrumentNames = [
   "lead_2_sawtooth",
@@ -72,12 +73,17 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     });
   };
 
-  const handleMainKnobClick = () => {
+  const nextInstrument = () => {
     const instrumentIndex = instrumentNames.indexOf(currentInstrumentName);
     const nextInstrumentIndex = (instrumentIndex + 1) % instrumentNames.length;
     const nextInstrumentName = instrumentNames[nextInstrumentIndex];
     setCurrentInstrumentName(nextInstrumentName);
   };
+
+  useKeydown(["Enter"], (e) => {
+    e.preventDefault();
+    nextInstrument();
+  });
 
   const loadInstrument = (
     instrumentName: InstrumentName,
@@ -169,7 +175,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                   "after:h-[18px] after:w-[18px] after:rounded-full",
                   "after:bg-gradient-to-b after:from-neutral-800 after:to-neutral-700",
                 )}
-                onClick={handleMainKnobClick}
+                onClick={nextInstrument}
               ></div>
             </div>
             <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
