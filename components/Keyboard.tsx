@@ -25,11 +25,13 @@ export const Key: React.FC<KeyProps> = ({ className, type, note }) => {
   return (
     <div
       className={cn(
+        "key",
+
         "relative float-left ml-[2px] flex cursor-pointer items-end justify-center rounded-b-sm border-neutral-900 pb-1 text-opacity-0 first:ml-0",
 
         "origin-top transition-transform duration-75 ease-in",
 
-        active && "scale-[.98]",
+        active && "active scale-[.99]",
 
         type === "accidental" &&
           "-left-[11px] z-30 -mr-[22px] h-[94px] w-[20px] bg-black text-white",
@@ -38,6 +40,7 @@ export const Key: React.FC<KeyProps> = ({ className, type, note }) => {
 
         className,
       )}
+      onMouseLeave={() => setActive(false)}
       onMouseDown={() => setActive(true)}
       onMouseUp={() => setActive(false)}
     ></div>
@@ -51,9 +54,10 @@ export const Keyboard: React.FC<KeyboardProps> = ({ children }) => {
   return (
     <div
       className={cn(
+        "keyboard",
         "relative z-20 flex h-full justify-center rounded bg-neutral-900",
         "before:content-[' '] before:absolute before:left-0 before:right-0 before:z-20 before:h-[150px] before:w-full before:rounded-[4px] before:shadow-inner",
-        "after:content-[' '] after:absolute after:left-0 after:right-0 after:-z-20 after:h-[150px] after:w-full after:rounded-[4px] after:shadow-xl",
+        "after:content-[' '] after:absolute after:left-0 after:right-0 after:-z-20 after:h-[166px] after:w-full after:rounded-[0px]",
       )}
     >
       {children}
