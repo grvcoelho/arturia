@@ -20,10 +20,16 @@ interface KeyProps {
 }
 
 export const Key: React.FC<KeyProps> = ({ className, type, note }) => {
+  const [active, setActive] = React.useState(false);
+
   return (
     <div
       className={cn(
         "relative float-left ml-[2px] flex cursor-pointer items-end justify-center rounded-b-sm border-neutral-900 pb-1 text-opacity-0 first:ml-0",
+
+        "origin-top transition-transform duration-75 ease-in",
+
+        active && "scale-[.98]",
 
         type === "accidental" &&
           "-left-[11px] z-30 -mr-[22px] h-[94px] w-[20px] bg-black text-white",
@@ -32,6 +38,8 @@ export const Key: React.FC<KeyProps> = ({ className, type, note }) => {
 
         className,
       )}
+      onMouseDown={() => setActive(true)}
+      onMouseUp={() => setActive(false)}
     ></div>
   );
 };
