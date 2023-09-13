@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Arturia from "@/components/Arturia";
-import GitHubButton from "react-github-button";
 import { ControlButton } from "@/components/ControlButton";
 import { useArturiaContext } from "@/contexts/ArturiaContext";
 import { MainKnob, StandardKnob } from "@/components/Knobs";
@@ -162,8 +161,8 @@ export default function Index() {
             name="example"
             className="relative top-[4px] mx-1 inline-flex h-0 w-[62px] [&>input]:-top-[6px] [&>input]:rotate-0"
           />{" "}
-          control the volume (1), reverb (2) and velocity (3). Fader 4 has no
-          function for now.
+          control the volume (1), reverb (2) and velocity (3). Fader 4 currently
+          does nothing.
         </div>
       </div>
 

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { DrumMachine, Soundfont, Reverb } from "smplr";
+import { DrumMachine, Soundfont, Reverb, CacheStorage } from "smplr";
 import {
   BiArrowFromBottom,
   BiUpArrowAlt,
   BiDownArrowAlt,
 } from "react-icons/bi";
-
+import { useDebounce } from "usehooks-ts";
 import { cn } from "@/lib/styling";
 import { Pad } from "./Pad";
 import { MainKnob, StandardKnob } from "./Knobs";
@@ -32,11 +32,15 @@ interface ArturiaProps {
   style?: React.CSSProperties;
 }
 
+const storage = new CacheStorage();
+
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
   const [state, actions] = useArturiaContext();
   const [currentInstrumentName, setCurrentInstrumentName] =
     React.useState<InstrumentName>(instrumentNames[0]);
+
+  const debouncedInstrumentName = useDebounce(currentInstrumentName, 300);
 
   const {
     instrument,
@@ -74,7 +78,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   };
 
   const nextInstrument = () => {
-    const instrumentIndex = instrumentNames.indexOf(currentInstrumentName);
+    const instrumentIndex = instrumentNames.indexOf(debouncedInstrumentName);
     const nextInstrumentIndex = (instrumentIndex + 1) % instrumentNames.length;
     const nextInstrumentName = instrumentNames[nextInstrumentIndex];
 
@@ -95,25 +99,41 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
       instrument: instrumentName,
       decayTime: 0.5,
       volume,
+      storage,
     });
 
     instrument.output.addEffect("reverb", reverbEffect, reverb);
-    setCurrentInstrumentName(instrumentName);
-    changeInstrument(instrument);
+
+    instrument.loaded().then(() => {
+      changeDisplayText(debouncedInstrumentName);
+      changeInstrument(instrument);
+    });
   };
 
   useEffect(() => {
     const ac = new AudioContext();
     const reverbEffect = new Reverb(ac);
-    loadInstrument(currentInstrumentName, ac, reverbEffect);
-    changeDisplayText(currentInstrumentName);
+
+    loadInstrument(debouncedInstrumentName, ac, reverbEffect);
+
+    return () => {
+      ac.close();
+    };
+  }, [debouncedInstrumentName]);
+
+  useEffect(() => {
+    const ac = new AudioContext();
 
     const drumkit = new DrumMachine(ac, {
       instrument: "TR-808",
     });
 
     changeDrumkit(drumkit);
-  }, [currentInstrumentName]);
+
+    return () => {
+      ac.close();
+    };
+  }, []);
 
   return (
     <div
