@@ -12,9 +12,9 @@ import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
-import {
-  ArturiaState,
-  arturiaReducer,
+import { ArturiaState, arturiaReducer, arturiaActions } from "@/state/arturia";
+
+const {
   changeDrumkit,
   changeFader3,
   changeFader4,
@@ -24,7 +24,7 @@ import {
   decreaseOctave,
   increaseOctave,
   toggleSustain,
-} from "@/state/arturia";
+} = arturiaActions;
 
 export type DrumNote =
   | "kick"
