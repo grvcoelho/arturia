@@ -1,5 +1,10 @@
 import React from "react";
 import { cn } from "@/lib/styling";
+import {
+  BiArrowFromBottom,
+  BiUpArrowAlt,
+  BiDownArrowAlt,
+} from "react-icons/bi";
 
 /**
  * text-red-500 ring-red-500
@@ -28,7 +33,7 @@ interface PadProps {
 }
 
 const Pad: React.FC<PadProps> = ({ color, children }) => (
-  <div className="flex h-[42px] w-[42px] cursor-not-allowed items-center justify-center rounded-[6px] bg-black">
+  <div className="flex h-[42px] w-[42px] cursor-pointer items-center justify-center rounded-[6px] bg-black">
     <div
       className={cn(
         "flex h-[38.5px] w-[38.5px] flex-col justify-end rounded-[4px] bg-black ring-[1.5px] ring-inset",
@@ -104,7 +109,7 @@ interface KnobProps {
 }
 
 const Knob: React.FC<KnobProps> = ({ children }) => (
-  <div className="space-between flex w-[22px] cursor-not-allowed flex-col items-center">
+  <div className="space-between flex w-[22px] cursor-pointer flex-col items-center">
     <div className="h-[22px] w-[22px] rounded-full bg-white shadow-md"></div>
     <span className="mt-[5px] font-mono text-[6px] text-neutral-800">
       {children}
@@ -152,10 +157,10 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
       <div className="justify-centerfont-bold flex h-[164px] items-center">
         <div className="ml-[8px] h-full w-[70px] pt-[15px]">
           <div className="flex flex-wrap justify-between">
-            <div className="flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px] bg-neutral-400 shadow-inner">
+            <div className="flex h-[20px] w-[32px] items-center justify-center rounded-[2px] bg-neutral-400 shadow-inner">
               <div
                 className={cn(
-                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-neutral-800 ring-[1.5px] ring-inset ring-white",
+                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-neutral-800 ring-[1.5px] ring-inset ring-white",
                 )}
               >
                 <span
@@ -165,10 +170,10 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
                 </span>
               </div>
             </div>
-            <div className="flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px] ">
+            <div className="flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
               <div
                 className={cn(
-                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
+                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
                 )}
               >
                 <span
@@ -180,10 +185,10 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
                 </span>
               </div>
             </div>
-            <div className="mt-[8px] flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px]">
+            <div className="mt-[8px] flex h-[20px] w-[32px] items-center justify-center rounded-[2px]">
               <div
                 className={cn(
-                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
+                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
                 )}
               >
                 <span
@@ -195,10 +200,10 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
                 </span>
               </div>
             </div>
-            <div className="mt-[8px] flex h-[20px] w-[32px] cursor-not-allowed items-center justify-center rounded-[2px] ">
+            <div className="mt-[8px] flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
               <div
                 className={cn(
-                  "flex h-[14px] w-[24px] flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
+                  "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-slate-100 shadow-sm",
                 )}
               >
                 <span
@@ -213,8 +218,14 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
           </div>
 
           <div className="mr-[2px] mt-[10px] flex justify-between">
-            <div className="mod h-[90px] w-[26px] rounded-[2px] bg-[#EDE9E8]"></div>
-            <div className="mod h-[90px] w-[26px] rounded-[2px] bg-[#EDE9E8]"></div>
+            <div className="mod flex-col-items-center flex h-[90px] w-[26px] cursor-pointer justify-between rounded-[2px] bg-[#EDE9E8] py-[2px]">
+              <BiUpArrowAlt className="w-[12px] text-neutral-800" />
+              <div className="h-[1px] w-[10px] bg-neutral-800"></div>
+              <BiDownArrowAlt className="w-[12px] text-neutral-800" />
+            </div>
+            <div className="mod flex h-[90px] w-[26px] cursor-pointer flex-col items-center justify-end rounded-[2px] bg-[#EDE9E8] py-[2px]">
+              <BiArrowFromBottom className="w-[12px] text-neutral-800" />
+            </div>
           </div>
         </div>
         <div className="ml-[12px] flex h-full flex-1 flex-col justify-between space-y-[9px]">
@@ -223,7 +234,7 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
               <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
                 Arturia
               </div>
-              <div className="mb-[17px] h-[20px] w-[20px] cursor-not-allowed rounded-full bg-neutral-600 shadow-lg"></div>
+              <div className="mb-[17px] h-[20px] w-[20px] cursor-pointer rounded-full bg-neutral-600 shadow-lg"></div>
             </div>
             <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
               <Knob>1</Knob>
