@@ -1,5 +1,6 @@
 import { cn } from "@/lib/styling";
-import Keyboard from "@/components/Keyboard";
+import Arturia from "@/components/Arturia";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -11,7 +12,11 @@ export default function Home() {
       </div>
 
       <div>
-        <Keyboard />
+        <Arturia />
+      </div>
+
+      <div>
+        <Image src="/arturia.png" width={595} height={369} />
       </div>
     </main>
   );

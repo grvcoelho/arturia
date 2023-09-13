@@ -5,10 +5,10 @@ const Key = ({ type, note }) => {
   return (
     <div
       className={cn(
-        "last:borde relative float-left flex items-end justify-center rounded-b-md border-2 border-neutral-900 pb-1",
+        "relative float-left flex items-end justify-center rounded-b-md border-2 border-neutral-900 pb-1",
 
         type === "accidental" &&
-          "-left-4 z-10 -mr-8 h-24 w-8 bg-black  text-white",
+          "-left-4 z-10 -mr-8 h-24 w-8 bg-[#F4F1F4]  text-white",
 
         type === "natural" &&
           " h-44 w-10 border-r-0 bg-white text-black last:border-r-2",
