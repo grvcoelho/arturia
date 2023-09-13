@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="mt-20 flex min-h-screen flex-col items-center space-y-20">
+      <main className="container mt-20 flex min-h-screen flex-col items-center space-y-20">
         <div className="text-center">
           <h1 className="text-5xl font-black text-black">🎵 Synth</h1>
         </div>

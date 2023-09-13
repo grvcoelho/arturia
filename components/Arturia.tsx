@@ -101,11 +101,11 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
         </div>
         <div className="ml-[12px] flex h-full flex-1 flex-col justify-between space-y-[9px]">
           <div className="flex h-[113px] items-end">
-            <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-800">
+            <div className="flex h-full w-[63px] flex-col items-center justify-between rounded-sm bg-neutral-900">
               <div className="mt-[23px] rounded-sm bg-black px-[8px] py-[4px] font-mono text-[4px] text-white">
                 Arturia
               </div>
-              <div className="mb-[17px] h-[20px] w-[20px] cursor-pointer rounded-full bg-neutral-600 shadow-lg"></div>
+              <div className="mb-[17px] h-[24px] w-[24px] cursor-pointer rounded-full bg-neutral-700 shadow-inner"></div>
             </div>
             <div className="mb-[6px] ml-[11px] flex h-[89px] w-[189px] flex-wrap gap-x-[33px] gap-y-[18px]">
               <Knob>1</Knob>

@@ -38,6 +38,10 @@ export const Key: React.FC<KeyProps> = ({ className, type, note }) => {
 
         type === "natural" && "z-20 h-[150px] w-[33px] bg-[#F4F1F4] text-black",
 
+        ["C#", "F#"].includes(note) && "left-[-16px]",
+
+        ["D#", "A#"].includes(note) && "left-[-6px]",
+
         className,
       )}
       onMouseLeave={() => setActive(false)}
