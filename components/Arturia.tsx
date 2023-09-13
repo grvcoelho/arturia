@@ -113,7 +113,7 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
       )}
       style={style}
     >
-      <div className="bg-neutral-30 bg-neutral-300text-3xl mb-[29px] flex h-[164px] items-center justify-center space-x-[10px] font-bold">
+      <div className="bg-neutral-30 bg-neutral-300text-3xl flex h-[164px] items-center justify-center space-x-[10px] font-bold">
         <div className="ml-[10px] h-full w-[70px] bg-purple-300"></div>
         <div className="flex h-full flex-1 flex-col justify-between space-y-[9px]">
           <div className="flex h-[113px] items-end bg-blue-100">
@@ -142,7 +142,17 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
           </div>
         </div>
       </div>
+      <div className="flex h-[29px] w-full items-end justify-between">
+        <div className="mb-[4px] ml-[12px] text-[12px] tracking-widest">
+          <span className="font-semibold">MINI</span>
+          <span>LAB</span>
+          <span className="font-bold">3</span>
+        </div>
 
+        <div className="mb-[3px] mr-[13px] inline-block scale-x-125 text-[11px] tracking-[1px]">
+          <span className="font-semibold">ARTURIA</span>
+        </div>
+      </div>
       <div>
         <Keyboard>
           <Key note="C" type="natural" />
