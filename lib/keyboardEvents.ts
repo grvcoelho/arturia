@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useRef } from "react";
 
 type KeyboardEventHandler = (event: KeyboardEvent) => any;
