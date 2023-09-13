@@ -89,7 +89,7 @@ const Arturia: React.FC<ArturiaProps> = (props) => {
           </div>
 
           <div className="mr-[2px] mt-[10px] flex justify-between">
-            <div className="mod flex-col-items-center flex h-[90px] w-[26px] cursor-pointer justify-between rounded-[2px] bg-[#EDE9E8] py-[2px]">
+            <div className="mod flex-col-items-center flex items-center h-[90px] w-[26px] cursor-pointer flex-col justify-between rounded-[2px] bg-[#EDE9E8] py-[2px]">
               <BiUpArrowAlt className="w-[12px] text-neutral-800" />
               <div className="h-[1px] w-[10px] bg-neutral-800"></div>
               <BiDownArrowAlt className="w-[12px] text-neutral-800" />
