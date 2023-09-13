@@ -12,19 +12,7 @@ import { Knob } from "./KnobProps";
 import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
-import { arturiaActions, ArturiaContext } from "@/state/arturia";
-
-const {
-  changeDrumkit,
-  changeFader3,
-  changeFader4,
-  changeInstrument,
-  changeReverb,
-  changeVolume,
-  decreaseOctave,
-  increaseOctave,
-  toggleSustain,
-} = arturiaActions;
+import { ArturiaContext } from "@/state/arturia";
 
 export type DrumNote =
   | "kick"
@@ -43,7 +31,19 @@ interface ArturiaProps {
 
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
-  const [arturiaState, dispatch] = useContext(ArturiaContext);
+  const [arturiaState, actions] = useContext(ArturiaContext);
+
+  const {
+    changeDrumkit,
+    changeFader3,
+    changeFader4,
+    changeInstrument,
+    changeReverb,
+    changeVolume,
+    decreaseOctave,
+    increaseOctave,
+    toggleSustain,
+  } = actions;
 
   const {
     instrument,
@@ -82,8 +82,8 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
       instrument: "TR-808",
     });
 
-    dispatch(changeInstrument(instrument));
-    dispatch(changeDrumkit(drumkit));
+    changeInstrument(instrument);
+    changeDrumkit(drumkit);
   }, []);
 
   return (
@@ -102,16 +102,13 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
             </div>
 
             <div className="flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
-              <ControlButton
-                onClick={() => dispatch(toggleSustain())}
-                active={sustain}
-              >
+              <ControlButton onClick={toggleSustain} active={sustain}>
                 Hold
               </ControlButton>
             </div>
             <div className="mt-[8px] flex h-[20px] w-[32px] items-center justify-center rounded-[2px]">
               <ControlButton
-                onClick={() => dispatch(decreaseOctave())}
+                onClick={decreaseOctave}
                 active={octave < middleOctave}
               >
                 Oct-
@@ -119,7 +116,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
             </div>
             <div className="mt-[8px] flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
               <ControlButton
-                onClick={() => dispatch(increaseOctave())}
+                onClick={increaseOctave}
                 active={octave > middleOctave}
               >
                 Oct+
@@ -163,7 +160,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                 value={volume}
                 max={100}
                 step={1}
-                onValueChange={(value) => dispatch(changeVolume(value))}
+                onValueChange={changeVolume}
               >
                 1
               </Fader>
@@ -173,7 +170,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                 value={reverb}
                 max={1}
                 step={0.001}
-                onValueChange={(value) => dispatch(changeReverb(value))}
+                onValueChange={changeReverb}
               >
                 2
               </Fader>
@@ -183,7 +180,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                 value={fader3}
                 max={100}
                 step={1}
-                onValueChange={(value) => dispatch(changeFader3(value))}
+                onValueChange={changeFader3}
               >
                 3
               </Fader>
@@ -193,7 +190,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
                 value={fader4}
                 max={100}
                 step={1}
-                onValueChange={(value) => dispatch(changeFader4(value))}
+                onValueChange={changeFader4}
               >
                 4
               </Fader>

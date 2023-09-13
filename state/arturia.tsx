@@ -1,3 +1,4 @@
+import { bindActionCreators } from "@/lib/state";
 import {
   type Dispatch,
   type PayloadAction,
@@ -30,7 +31,7 @@ export const initialState: ArturiaState = {
   drumkit: null,
 };
 
-const arturiaSlice = createSlice({
+const { actions, reducer } = createSlice({
   name: "arturia",
   initialState: {} as ArturiaState,
   reducers: {
@@ -64,38 +65,22 @@ const arturiaSlice = createSlice({
   },
 });
 
-type ArturiaContext = [ArturiaState, React.Dispatch<any>];
+type ArturiaActions = typeof actions;
+
+type ArturiaContext = [ArturiaState, ArturiaActions];
 
 export const ArturiaContext = createContext<ArturiaContext>([
   initialState as ArturiaState,
-  () => {},
+  {} as ArturiaActions,
 ]);
 
-const bindActionCreators = <A,>(
-  actionCreators: ActionCreatorsMapObject<A>,
-  dispatch: React.Dispatch<A>,
-) => {
-  const boundActionCreators: ActionCreatorsMapObject = {};
-
-  for (const key in actionCreators) {
-    const actionCreator = actionCreators[key];
-    boundActionCreators[key] = (...args: any[]) =>
-      dispatch(actionCreator(...args));
-  }
-
-  return boundActionCreators;
-};
-
 export const ArturiaProvider = ({ children }: React.PropsWithChildren<{}>) => {
-  const [state, dispatch] = useReducer(arturiaSlice.reducer, initialState);
-
-  // const actions = bindActionCreators(arturiaSlice.actions, dispatch);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const boundActions = bindActionCreators(actions, dispatch);
 
   return (
-    <ArturiaContext.Provider value={[state, dispatch]}>
+    <ArturiaContext.Provider value={[state, boundActions]}>
       {children}
     </ArturiaContext.Provider>
   );
 };
-
-export const arturiaActions = arturiaSlice.actions;
