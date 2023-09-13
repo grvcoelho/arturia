@@ -31,7 +31,8 @@
     "smplr": "^0.6.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {}
 }

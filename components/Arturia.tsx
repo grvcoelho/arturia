@@ -13,34 +13,27 @@ import { Fader } from "./Fader";
 import { Keyboard } from "./Keyboard";
 import { ControlButton } from "./ControlButton";
 import { useArturiaContext } from "@/contexts/ArturiaContext";
-import { DrumNote } from "@/lib/music";
+import {
+  DrumNote,
+  InstrumentName,
+  availableInstruments,
+  loadInstrument,
+} from "@/lib/music";
 import { useKeydown } from "@/lib/keyboardEvents";
 import { Display } from "./Display";
-
-const instrumentNames = [
-  "lead_2_sawtooth",
-  "electric_piano_1",
-  "marimba",
-  "trumpet",
-  "tuba",
-] as const;
-
-type InstrumentName = (typeof instrumentNames)[number];
 
 interface ArturiaProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-const storage = new CacheStorage();
-
 const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   const middleOctave = 4;
   const [state, actions] = useArturiaContext();
   const [currentInstrumentName, setCurrentInstrumentName] =
-    React.useState<InstrumentName>(instrumentNames[0]);
+    React.useState<InstrumentName>(availableInstruments[0]);
 
-  const debouncedInstrumentName = useDebounce(currentInstrumentName, 300);
+  const debouncedInstrumentName = useDebounce(currentInstrumentName, 500);
 
   const {
     instrument,
@@ -67,9 +60,9 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     toggleSustain,
   } = actions;
 
+  instrument?.output.sendEffect("reverb", reverb);
   instrument?.output.setVolume(volume);
   drumkit?.output.setVolume(volume);
-  instrument?.output.sendEffect("reverb", reverb);
 
   const handlePadTap = (drumNote: DrumNote) => {
     drumkit?.start({
@@ -78,9 +71,12 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
   };
 
   const nextInstrument = () => {
-    const instrumentIndex = instrumentNames.indexOf(debouncedInstrumentName);
-    const nextInstrumentIndex = (instrumentIndex + 1) % instrumentNames.length;
-    const nextInstrumentName = instrumentNames[nextInstrumentIndex];
+    const instrumentIndex = availableInstruments.indexOf(
+      debouncedInstrumentName,
+    );
+    const nextInstrumentIndex =
+      (instrumentIndex + 1) % availableInstruments.length;
+    const nextInstrumentName = availableInstruments[nextInstrumentIndex];
 
     setCurrentInstrumentName(nextInstrumentName);
   };
@@ -90,31 +86,22 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     nextInstrument();
   });
 
-  const loadInstrument = (
-    instrumentName: InstrumentName,
-    ac: AudioContext,
-    reverbEffect: Reverb,
-  ) => {
-    const instrument = new Soundfont(ac, {
-      instrument: instrumentName,
-      decayTime: 0.5,
-      volume,
-      storage,
-    });
-
-    instrument.output.addEffect("reverb", reverbEffect, reverb);
-
-    instrument.loaded().then(() => {
-      changeDisplayText(debouncedInstrumentName);
-      changeInstrument(instrument);
-    });
-  };
-
   useEffect(() => {
     const ac = new AudioContext();
     const reverbEffect = new Reverb(ac);
 
-    loadInstrument(debouncedInstrumentName, ac, reverbEffect);
+    changeDisplayText("Loading...");
+
+    loadInstrument(
+      debouncedInstrumentName,
+      ac,
+      reverbEffect,
+      volume,
+      reverb,
+    ).then((instrument) => {
+      changeDisplayText(debouncedInstrumentName);
+      changeInstrument(instrument);
+    });
 
     return () => {
       ac.close();

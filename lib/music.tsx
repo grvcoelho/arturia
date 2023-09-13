@@ -1,4 +1,5 @@
 import TonalNote from "@tonaljs/note";
+import { CacheStorage, Reverb, Soundfont } from "smplr";
 
 export type Note = {
   midi: number;
@@ -32,4 +33,43 @@ export const notesFromOctave = (oct: number): Array<Note> => {
       midi,
       oct,
     }));
+};
+
+const instrumentNames = [
+  "lead_2_sawtooth",
+  "electric_piano_1",
+  "marimba",
+  "trumpet",
+  "tuba",
+] as const;
+
+export const availableInstruments = [
+  "lead_2_sawtooth",
+  "electric_piano_1",
+  "marimba",
+  "trumpet",
+  "tuba",
+] as const;
+
+export type InstrumentName = (typeof availableInstruments)[number];
+
+const storage = new CacheStorage();
+
+export const loadInstrument = (
+  instrumentName: InstrumentName,
+  ac: AudioContext,
+  reverbEffect: Reverb,
+  volume: number,
+  reverb: number,
+) => {
+  const instrument = new Soundfont(ac, {
+    instrument: instrumentName,
+    decayTime: 0.5,
+    volume,
+    storage,
+  });
+
+  instrument.output.addEffect("reverb", reverbEffect, reverb);
+
+  return instrument.loaded();
 };
