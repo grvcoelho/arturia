@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useEffect } from "react";
-import { DrumMachine, Soundfont, Reverb, CacheStorage } from "smplr";
+import { DrumMachine, Reverb } from "smplr";
 import {
   BiArrowFromBottom,
   BiUpArrowAlt,

@@ -1,3 +1,5 @@
+"use client";
+
 import TonalNote from "@tonaljs/note";
 import { CacheStorage, Reverb, Soundfont } from "smplr";
 
@@ -53,7 +55,17 @@ export const availableInstruments = [
 
 export type InstrumentName = (typeof availableInstruments)[number];
 
-const storage = new CacheStorage();
+let storage: CacheStorage;
+
+const getStorage = (): CacheStorage | undefined => {
+  try {
+    storage = new CacheStorage();
+    return storage;
+  } catch (e) {
+    console.error(e);
+    return;
+  }
+};
 
 export const loadInstrument = (
   instrumentName: InstrumentName,
@@ -66,7 +78,7 @@ export const loadInstrument = (
     instrument: instrumentName,
     decayTime: 0.5,
     volume,
-    storage,
+    storage: getStorage(),
   });
 
   instrument.output.addEffect("reverb", reverbEffect, reverb);
