@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Soundfont, Reverb, CacheStorage } from "smplr";
+import { Soundfont, Reverb } from "smplr";
 import {
   BiArrowFromBottom,
   BiUpArrowAlt,
   BiDownArrowAlt,
 } from "react-icons/bi";
-
-const storage = new CacheStorage();
 
 import { cn } from "@/lib/styling";
 import { Pad } from "./Pad";
@@ -25,6 +23,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
 
   const [volume, setVolume] = useState(initialVolume);
   const [reverb, setReverb] = useState(0.2);
+  const [sustain, setSustain] = useState(false);
   const [fader3, setFader3] = useState(30);
   const [fader4, setFader4] = useState(70);
   const [octave, setOctave] = useState(initialOctave);
@@ -38,6 +37,8 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
 
   const handleOctaveDecrease = () =>
     setOctave((prev) => (prev > 0 ? prev - 1 : prev));
+
+  const handleSustainChange = () => setSustain((prev) => !prev);
 
   useEffect(() => {
     const ac = new AudioContext();
@@ -80,9 +81,11 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
             </div>
             <div className="flex h-[20px] w-[32px] items-center justify-center rounded-[2px] ">
               <div
+                onClick={handleSustainChange}
                 className={cn(
                   "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] bg-neutral-100 shadow-sm transition-all ease-in-out",
                   "active:translate-y-[1px] active:shadow-none",
+                  sustain && "bg-white ",
                 )}
               >
                 <span
@@ -228,7 +231,7 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
         </div>
       </div>
       <div>
-        <Keyboard instrument={instrument} octave={octave} />
+        <Keyboard sustain={sustain} instrument={instrument} octave={octave} />
       </div>
     </div>
   );

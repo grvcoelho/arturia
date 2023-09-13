@@ -36,16 +36,16 @@ export const Key: React.FC<KeyProps> = ({
   onPress,
   onRelease,
 }) => {
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = useState(false);
   const chroma = TonalNote.get(TonalNote.fromMidi(note.midi)).chroma || -1;
   const isAccidental = isMidiAccidental(note.midi);
 
-  const handlePressed = () => {
+  const handlePress = () => {
     setActive(true);
     onPress && onPress(note);
   };
 
-  const handleReleased = () => {
+  const handleRelease = () => {
     setActive(false);
     onRelease && onRelease(note);
   };
@@ -74,9 +74,9 @@ export const Key: React.FC<KeyProps> = ({
 
         className,
       )}
-      onMouseDown={handlePressed}
-      onMouseLeave={handleReleased}
-      onMouseUp={handleReleased}
+      onMouseDown={handlePress}
+      onMouseLeave={handleRelease}
+      onMouseUp={handleRelease}
     ></div>
   );
 };
@@ -84,9 +84,14 @@ export const Key: React.FC<KeyProps> = ({
 interface KeyboardProps {
   instrument: Soundfont | null;
   octave: number;
+  sustain: boolean;
 }
 
-export const Keyboard: React.FC<KeyboardProps> = ({ instrument, octave }) => {
+export const Keyboard: React.FC<KeyboardProps> = ({
+  instrument,
+  octave,
+  sustain,
+}) => {
   const notes = [
     ...notesFromOctave(octave),
     ...notesFromOctave(octave + 1),
@@ -103,7 +108,11 @@ export const Keyboard: React.FC<KeyboardProps> = ({ instrument, octave }) => {
     });
   };
 
-  const releaseKey = (note: Note) => instrument?.stop(note.midi);
+  const releaseKey = (note: Note) => {
+    console.log(sustain, note);
+    if (sustain) return;
+    instrument?.stop(note.midi);
+  };
 
   return (
     <div
