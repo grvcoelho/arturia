@@ -53,7 +53,7 @@ export const Keyboard: React.FC = ({}) => {
   };
 
   const handleRelease = (key: KeyboardKey) => {
-    if (sustain) return;
+    if (sustain) return deactivateKey(key);
 
     deactivateKey(key);
     instrument?.stop(key.note.midi);
