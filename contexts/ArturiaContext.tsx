@@ -6,13 +6,19 @@ import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { clamp, not } from "ramda";
 import React, { useReducer, createContext, useContext } from "react";
 import { DrumMachine, Soundfont } from "smplr";
+import Scale from "@tonaljs/scale";
+import TonalNote from "@tonaljs/note";
+import Range from "@tonaljs/range";
+import * as R from "ramda";
 
 export type KeyboardKey = {
   note: Note;
   active: boolean;
+  highlight?: boolean;
 };
 
 export type ArturiaState = {
+  scale: string;
   displayText: string;
   volume: number;
   reverb: number;
@@ -32,7 +38,7 @@ const keysFromOctave = (octave: number): Array<KeyboardKey> => {
     notesFromOctave(octave + 2)[0],
   ];
 
-  const keys = notes.map((note) => ({ note, active: false }));
+  const keys = notes.map((note) => ({ note, active: false, highlight: false }));
 
   return keys;
 };
@@ -42,6 +48,7 @@ function getInitialState(): ArturiaState {
   const keyboardKeys = keysFromOctave(initialOctave);
 
   return {
+    scale: "",
     displayText: "Arturia",
     volume: 90,
     reverb: 0.2,
@@ -70,6 +77,35 @@ const { actions, reducer } = createSlice({
         (k) => k.note.midi === action.payload.note.midi,
       );
       state.keyboardKeys[index].active = false;
+    },
+    highlightScale(state, action: PayloadAction<string>) {
+      const adjustRoot = R.pipe(
+        R.defaultTo(""),
+        R.toLower,
+        R.replace(/^./, R.toUpper),
+      );
+
+      const adjustMode = R.pipe(R.defaultTo(""), R.toLower);
+
+      const [root, mode] = R.pipe(
+        R.split(" "),
+        R.adjust(0, adjustRoot),
+        R.adjust(1, adjustMode),
+        R.take(2),
+      )(action.payload);
+
+      const scaleName = `${root}${state.octave} ${mode}`;
+
+      const degrees = Scale.degrees(scaleName);
+      const midiNotes = Range.numeric([1, 8]).map(degrees).map(TonalNote.midi);
+
+      state.scale = scaleName;
+
+      state.keyboardKeys = state.keyboardKeys.map((k) => {
+        const highlight = midiNotes.includes(k.note.midi);
+
+        return { ...k, highlight };
+      });
     },
     setkeys(state, action: PayloadAction<Array<KeyboardKey>>) {
       state.keyboardKeys = action.payload;

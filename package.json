@@ -11,6 +11,8 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@tonaljs/note": "^4.10.0",
+    "@tonaljs/range": "^4.8.1",
+    "@tonaljs/scale": "^4.12.2",
     "@types/node": "20.5.7",
     "@types/ramda": "^0.29.3",
     "@types/react": "18.2.21",

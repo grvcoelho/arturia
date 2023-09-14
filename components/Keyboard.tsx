@@ -108,6 +108,7 @@ export const Keyboard: React.FC = ({}) => {
           key={k.note.midi}
           keyboardKey={k}
           active={k.active}
+          highlight={k.highlight}
           onPress={handlePress}
           onRelease={handleRelease}
         />

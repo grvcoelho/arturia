@@ -6,14 +6,20 @@ import { ControlButton } from "@/components/ControlButton";
 import { useArturiaContext } from "@/contexts/ArturiaContext";
 import { MainKnob, StandardKnob } from "@/components/Knobs";
 import { Fader } from "@/components/Fader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Index() {
   const [state, actions] = useArturiaContext();
 
   const { sustain, octave } = state;
-  const { increaseOctave, decreaseOctave, toggleSustain } = actions;
+  const { increaseOctave, decreaseOctave, toggleSustain, highlightScale } =
+    actions;
   const [exampleFader, setExampleFader] = useState(75);
+  const [scale, setScale] = useState("");
+
+  useEffect(() => {
+    highlightScale(scale);
+  }, [scale, octave]);
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-center justify-center overflow-x-hidden py-24">
@@ -56,12 +62,27 @@ export default function Index() {
         </div>
       </div>
 
-      {/* <div className="mt-4 flex w-full items-center justify-center"> */}
-      {/* <div className="scale-[0.70] sm:scale-100 md:scale-110 lg:scale-125"> */}
       <div className="-mb-14 origin-top scale-[0.7] sm:mb-14 sm:scale-100 md:mb-24 md:scale-110 lg:mb-36 lg:scale-125">
         <Arturia />{" "}
       </div>
-      {/* </div> */}
+
+      <div className="mb-6 w-full max-w-[500px] px-4 text-left">
+        <h1 className="mb-2 text-xl font-bold">Learn</h1>
+
+        <div className="mb-3 text-sm">
+          <div className="display mb-3 flex items-center gap-x-3 text-sm">
+            <label htmlFor="scale">1. Highlight a scale: </label>
+
+            <input
+              type="text"
+              value={scale}
+              onChange={(e) => setScale(e.target.value)}
+              className="w-60 border-b border-neutral-200 px-2 py-1 text-center text-sm focus:border-neutral-300 focus:outline-none"
+              placeholder="e.g F major, D# minor, Bb blues"
+            />
+          </div>
+        </div>
+      </div>
 
       <div className="mb-14 max-w-[500px] px-4 text-left">
         <h1 className="mb-2 text-xl font-bold">Tips</h1>
