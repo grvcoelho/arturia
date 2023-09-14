@@ -83,10 +83,14 @@ const Arturia: React.FC<ArturiaProps> = ({ className, style }) => {
     setCurrentInstrumentName(nextInstrumentName);
   };
 
-  useKeydown(["Enter"], (e) => {
-    e.preventDefault();
-    nextInstrument();
-  });
+  useKeydown(
+    ["Enter"],
+    (e) => {
+      e.preventDefault();
+      nextInstrument();
+    },
+    { ignoreInput: true },
+  );
 
   useEffect(() => {
     const ac = new AudioContext();

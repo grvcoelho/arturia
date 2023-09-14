@@ -58,29 +58,41 @@ export const Keyboard: React.FC = ({}) => {
     instrument?.stop(key.note.midi);
   };
 
-  useKeydown(controlKeymap, (e) => {
-    e.preventDefault();
-    return (
-      !e.repeat &&
-      ((e.key === "+" && increaseOctave()) ||
-        (e.key === "-" && decreaseOctave()) ||
-        (e.key === "Tab" && toggleSustain()))
-    );
-  });
+  useKeydown(
+    controlKeymap,
+    (e) => {
+      e.preventDefault();
+      return (
+        !e.repeat &&
+        ((e.key === "+" && increaseOctave()) ||
+          (e.key === "-" && decreaseOctave()) ||
+          (e.key === "Tab" && toggleSustain()))
+      );
+    },
+    { ignoreInput: true },
+  );
 
-  useKeydown(keymap, (e) => {
-    const index = keymap.indexOf(e.key);
-    const key = keyboardKeys[index];
+  useKeydown(
+    keymap,
+    (e) => {
+      const index = keymap.indexOf(e.key);
+      const key = keyboardKeys[index];
 
-    if (key && !e.repeat) handlePress(key);
-  });
+      if (key && !e.repeat) handlePress(key);
+    },
+    { ignoreInput: true },
+  );
 
-  useKeyup(keymap, (e) => {
-    const index = keymap.indexOf(e.key);
-    const key = keyboardKeys[index];
+  useKeyup(
+    keymap,
+    (e) => {
+      const index = keymap.indexOf(e.key);
+      const key = keyboardKeys[index];
 
-    if (key) handleRelease(key);
-  });
+      if (key) handleRelease(key);
+    },
+    { ignoreInput: true },
+  );
 
   return (
     <div
