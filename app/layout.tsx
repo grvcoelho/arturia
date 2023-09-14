@@ -7,7 +7,21 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Arturia",
-  description: "MIDI keyboard simulation of Arturia Minilab 3",
+  description:
+    "A fully functional recreation of Arturia's MiniLab 3 MIDI controller made with CSS and JavaScript",
+  openGraph: {
+    type: "website",
+    url: "https://grvcoelho.github.io/arturia",
+    title: "Arturia",
+    description:
+      "A fully functional recreation of Arturia's MiniLab 3 MIDI controller made with CSS and JavaScript",
+    siteName: "Arturia",
+    images: [
+      {
+        url: "https://github.com/grvcoelho/arturia/blob/main/arturia.png?raw=true",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
