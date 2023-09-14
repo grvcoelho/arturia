@@ -107,6 +107,19 @@ const { actions, reducer } = createSlice({
         return { ...k, highlight };
       });
     },
+    playKey(state, action: PayloadAction<KeyboardKey>) {
+      const { instrument, velocity } = state;
+      const key = action.payload;
+
+      if (!instrument) return;
+
+      instrument.start({
+        note: key.note.midi,
+        time: instrument.context.currentTime,
+        velocity,
+        duration: 0.05,
+      });
+    },
     setkeys(state, action: PayloadAction<Array<KeyboardKey>>) {
       state.keyboardKeys = action.payload;
     },

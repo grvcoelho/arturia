@@ -12,14 +12,40 @@ export default function Index() {
   const [state, actions] = useArturiaContext();
 
   const { sustain, octave } = state;
-  const { increaseOctave, decreaseOctave, toggleSustain, highlightScale } =
-    actions;
+  const {
+    activateKey,
+    deactivateKey,
+    increaseOctave,
+    decreaseOctave,
+    toggleSustain,
+    highlightScale,
+    playKey,
+  } = actions;
   const [exampleFader, setExampleFader] = useState(75);
   const [scale, setScale] = useState("");
 
   useEffect(() => {
     highlightScale(scale);
   }, [scale, octave]);
+
+  // FIXME: Definitely should be better ¯\_(ツ)_/¯
+  const playScale = () => {
+    const highlightedKeys = state.keyboardKeys.filter((k) => k.highlight);
+
+    highlightedKeys.forEach((k, i) => {
+      setTimeout(() => {
+        activateKey(k);
+        playKey(k);
+      }, i * 200);
+
+      setTimeout(
+        () => {
+          deactivateKey(k);
+        },
+        70 + i * 250,
+      );
+    });
+  };
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-center justify-center overflow-x-hidden py-24">
@@ -70,7 +96,7 @@ export default function Index() {
         <h1 className="mb-2 text-xl font-bold">Learn</h1>
 
         <div className="mb-3 text-sm">
-          <div className="display mb-3 flex items-center gap-x-3 text-sm">
+          <div className="display gap-x- mb-3 flex items-center gap-4 text-sm">
             <label htmlFor="scale">1. Highlight a scale: </label>
 
             <input
@@ -80,6 +106,10 @@ export default function Index() {
               className="w-60 border-b border-neutral-200 px-2 py-1 text-center text-sm focus:border-neutral-300 focus:outline-none"
               placeholder="e.g F major, D# minor, Bb blues"
             />
+
+            <ControlButton className="scale-150" onClick={playScale}>
+              Play
+            </ControlButton>
           </div>
         </div>
       </div>
