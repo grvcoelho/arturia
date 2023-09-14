@@ -2,9 +2,9 @@
   <img alt="Arturia" src="arturia.png" width="400" />
 </div>
 
+# 🎹 arturia
 
-  # 🎹 arturia
-  This is fully functional recreation of Arturia's MiniLab 3 MIDI controller made with CSS and JavaScript. [Have fun!](https://grvcoelho.github.io/arturia)
+This is fully functional recreation of Arturia's MiniLab 3 MIDI controller made with CSS and JavaScript. [Have fun!](https://grvcoelho.github.io/arturia)
 
 ## Getting Started
 
