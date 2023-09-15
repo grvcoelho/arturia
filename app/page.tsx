@@ -74,22 +74,12 @@ export default function Index() {
 
         <div className="flex h-7 justify-center">
           <iframe
-            src="https://ghbtns.com/github-btn.html?user=grvcoelho&type=follow&count=true&size=large"
-            width="230"
-            height="30"
-            title="GitHub"
-          ></iframe>
-          <iframe
             src="https://ghbtns.com/github-btn.html?user=grvcoelho&repo=arturia&type=star&count=true&size=large"
-            width="170"
+            width="130"
             height="30"
             title="GitHub"
           ></iframe>
         </div>
-      </div>
-
-      <div className="-mb-14 origin-top scale-[0.7] sm:mb-14 sm:scale-100 md:mb-24 md:scale-110 lg:mb-36 lg:scale-125">
-        <Arturia />{" "}
       </div>
 
       <div className="mb-6 w-full max-w-[500px] px-4 text-left">
@@ -112,6 +102,10 @@ export default function Index() {
             </ControlButton>
           </div>
         </div>
+      </div>
+
+      <div className="-mb-14 origin-top scale-[0.7] sm:mb-14 sm:scale-100 md:mb-24 md:scale-110 lg:mb-36 lg:scale-125">
+        <Arturia />{" "}
       </div>
 
       <div className="mb-14 max-w-[500px] px-4 text-left">
