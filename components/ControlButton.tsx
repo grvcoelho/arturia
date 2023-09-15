@@ -21,7 +21,7 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
       onClick={onClick}
       className={cn(
         "control-button",
-        "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] transition-all ease-in-out active:translate-y-[1px] active:shadow-none",
+        "flex h-[14px] w-[24px] cursor-pointer flex-col justify-center rounded-[1.5px] text-[4px] transition-all ease-in-out active:translate-y-[1px] active:shadow-none",
         variant === "default" && "default bg-neutral-100",
         variant === "shift" &&
           "shift bg-neutral-800 ring-[1.5px] ring-inset ring-white",
@@ -31,7 +31,7 @@ export const ControlButton: React.FC<ControlButtonProps> = ({
     >
       <span
         className={cn(
-          "text-center font-mono text-[4px]",
+          "text-center font-mono",
           variant === "default" && "text-neutral-800",
           variant === "shift" && "text-white",
         )}

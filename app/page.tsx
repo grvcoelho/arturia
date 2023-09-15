@@ -42,14 +42,14 @@ export default function Index() {
         () => {
           deactivateKey(k);
         },
-        70 + i * 250,
+        120 + i * 200,
       );
     });
   };
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-center justify-center overflow-x-hidden py-24">
-      <div className="mb-14 max-w-lg space-y-8 px-4 text-center">
+      <div className="mb-6 max-w-lg space-y-6 px-4 text-center">
         <h1 className="scale-x-[1.3] text-5xl font-semibold tracking-[10px]">
           ARTURIA
         </h1>
@@ -86,25 +86,25 @@ export default function Index() {
         <h1 className="mb-2 text-xl font-bold">Learn</h1>
 
         <div className="mb-3 text-sm">
-          <div className="display gap-x- mb-3 flex items-center gap-4 text-sm">
+          <div className="display mb-3 flex flex-col items-start gap-4 text-sm sm:flex-row sm:items-center">
             <label htmlFor="scale">1. Highlight a scale: </label>
 
             <input
               type="text"
               value={scale}
               onChange={(e) => setScale(e.target.value)}
-              className="w-60 border-b border-neutral-200 px-2 py-1 text-center text-sm focus:border-neutral-300 focus:outline-none"
+              className="w-60 border-b border-neutral-200 pb-1 text-left text-sm focus:border-neutral-300 focus:outline-none sm:text-center"
               placeholder="e.g F major, D# minor, Bb blues"
             />
 
-            <ControlButton className="scale-150" onClick={playScale}>
+            <ControlButton className="scale-150 text-[6px]" onClick={playScale}>
               Play
             </ControlButton>
           </div>
         </div>
       </div>
 
-      <div className="-mb-14 origin-top scale-[0.7] sm:mb-14 sm:scale-100 md:mb-24 md:scale-110 lg:mb-36 lg:scale-125">
+      <div className="-mb-14 origin-top scale-[0.65] sm:mb-14 sm:scale-100 md:mb-32 md:scale-125 lg:mb-60 lg:scale-150">
         <Arturia />{" "}
       </div>
 
